@@ -8,5 +8,5 @@ def quiz_page():
     if request.method == "POST":
         print("POST request successfully sent!")
 
-
+    print("This is a get request")
     return render_template('quiz.html')
