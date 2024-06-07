@@ -1,4 +1,11 @@
 * {
     box-sizing: border-box;
+    color: white;
+}
+
+body {
+    background-image: linear-gradient(rgba(4, 9, 28, 0.8), rgba(4, 9, 28, 0.8)), url('./images/quiz-bg.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
