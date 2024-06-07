@@ -2,6 +2,7 @@ from flask import Flask
 from models import db
 from flask_login import LoginManager
 
+
 DATABASE_NAME = 'database.db'
 
 def create_app():
@@ -12,8 +13,15 @@ def create_app():
     from user.models import User
     from user.views import views
     app.register_blueprint(views, url_prefix="/views")
+
+    from trade import views as trade_views  
+    app.register_blueprint(trade_views.trade, url_prefix="/trade")
+
+    from ranking.views import rank
+    app.register_blueprint(rank, url_prefix="/rank")
     
     db.init_app(app)
+   
 
     with app.app_context():
         db.create_all()

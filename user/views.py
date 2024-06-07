@@ -43,7 +43,7 @@ def register():
                 else: 
                 # if user record is not in database, try to create new account
                     try:
-                        new_user_account = User(email=normalized_email,username=username,password=generate_password_hash(password,method="scrypt"))
+                        new_user_account = User(email=normalized_email,username=username,password=generate_password_hash(password,method="scrypt"), cash=2000.0)
                         db.session.add(new_user_account)
                         db.session.commit()
                         flash("Account successfully created!",category="success")
@@ -88,7 +88,7 @@ def login():
             flash("User account does not exist, please create an account.",category="error")
 
     # if method is GET, render page
-    return render_template('login.html',current_page="login",current_user=current_user)
+    return render_template('home.html',current_page="login",current_user=current_user)
 
 @views.route("/logout",methods=["GET"])
 @login_required
