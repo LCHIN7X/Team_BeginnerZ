@@ -14,6 +14,9 @@ def create_app():
     
     db.init_app(app)
 
+    from quiz.views import quiz 
+    app.register_blueprint(quiz,url_prefix="/quiz")
+
     with app.app_context():
         db.create_all()
     
