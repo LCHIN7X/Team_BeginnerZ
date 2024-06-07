@@ -1,0 +1,228 @@
+/* font */
+@font-face {
+    font-family: 'Sofia';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sofia/v14/8QIHdirahM3j_su5uI0.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  
+  @font-face {
+    font-family: 'Audiowide';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/audiowide/v20/l7gdbjpo0cum0ckerWCdlg_O.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  
+  /* font */
+  
+  /* all page */
+  
+  .header {
+    color: #ffffff;
+    background-image: url(https://png.pngtree.com/background/20210709/original/pngtree-simple-technology-business-line-picture-image_938374.jpg);
+    background-size: cover;
+    padding: 20px;
+    font-size: 40px;
+    text-align: center;
+    background-size: cover;
+  }
+  
+  
+  body {
+      background-color: #dadaff;
+    }
+  
+  
+  ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #10337f;
+  }
+    
+  #link {
+      float: left;
+  }
+    
+  #link a, .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+  }
+    
+  #link a:hover, .dropdown:hover .dropbtn {
+      background-color: rgb(195, 237, 253);
+      color: #000;
+  }
+    
+  #link.dropdown {
+      display: inline-block;
+  }
+    
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #191329;
+      z-index: 1;
+  }
+    
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  
+  #title1 {
+      text-align: center;
+      font-family: 'Audiowide';
+      font-size:60px;
+      color: #ffffff;
+      text-shadow: 4px 5px 2px #000000
+    }
+  
+  #title2{
+      font-size: 40px;
+      color: #ffffff;
+      text-shadow: 1px 2px 2px #000000;
+      background-color: #000000;
+      font-family: Georgia, serif;
+      text-align: center;
+      column-span: all;
+  }
+  
+  .column11 {
+      column-count: 2;
+  }
+    
+  .column22 {
+      column-count: 3;
+  }
+    
+  .column33 {
+      column-count: 4;
+  }
+    
+  
+  #video1 {
+      margin-left: 50vw;
+      transform: translate(-50%);
+      padding-bottom:50px ;
+  }  
+  
+  
+  
+    /* homepage */
+  #gif1 {
+    position: absolute;
+    left: 180px;
+    top: 500px;
+    z-index: -1;
+  }
+  
+  
+  #gif2 {
+    transform: rotateY(180deg);
+    position: absolute;
+    right:160px ;
+    top: 500px;
+    z-index: -1;
+  }
+  
+  
+  
+  
+  
+  /* general prurpose application */
+  #gif3 {
+    position: absolute;
+    left: 70px;
+    top: 300px;
+    z-index: -1;
+  }
+  
+  #gif4 {
+    position: absolute;
+    right:80px ;
+    top: 300px;
+    z-index: -1;
+  }
+  
+  #gpaintro{
+    font-family: 	Brush Script MT;
+    font-size: 25px ;
+    background-color: #dbd0ff;
+    outline-style: outset;
+    outline-width: 8px;
+    outline-color: #1d142e;
+    width: 800px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 20px;
+  
+    }
+  
+  #typestma{
+    font-size: 30px;
+    color: #ffffff;
+    text-shadow: 1px 2px 2px #000000;
+    font-family: Georgia, serif;
+    text-align: center;
+    background-color: #000000;
+  
+  }
+  
+  .column1 {
+    float: left;
+    width: 30%;
+    padding: 10px;
+  }
+  
+  .row1::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media screen and (max-width:600px) {
+    .column1 {
+      width: 100%;
+    }
+  }
+  
+  
+  
+  #gif7 {
+    position: absolute;
+    left: 180px;
+    top: 300px;
+    z-index: -1;
+  }
+  
+  
+  #gif8 {
+    transform: rotateY(180deg);
+    position: absolute;
+    right:160px ;
+    top: 300px;
+    z-index: -1;
+  }
+  
+  /* microsoft */
+  .imgp{
+    line-height: 1.6em;
+    list-style: none;
+    background:url(https://p8.itc.cn/q_70/images03/20211017/f1c398c77b8c4491a81da8c7d4a03245.gif) no-repeat 2em;
+    background-size: 1.2em 1.2em;
+    text-indent: 4em;
+  }
+  
+  .imgpp{
+    line-height: 1.2em;
+    list-style: none;
+    background:url(https://raw.githubusercontent.com/WangEn/BlogBackup/master/blogimgs/food-boy.gif) no-repeat;
+    background-size: 1.2em 1.2em;
+    text-indent: 2em;
+  }
