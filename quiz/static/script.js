@@ -1,10 +1,12 @@
 const startQuizBtnEl = document.getElementById("start-quiz-btn-el");
 const quizContainerEl = document.getElementById('quiz-container-el')
 
+
 startQuizBtnEl.addEventListener("click", () => {
   fetch("/quiz/get-questions")
     .then((res) => res.json())
     .then((data) => {
+      quizContainerEl.innerHTML = ''
       const questions = data.questions;
       questions.forEach((question, index) => {
         renderQuizQuestion(question, index);

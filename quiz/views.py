@@ -49,8 +49,8 @@ def extract_question_and_answer(question_content):
             options["option_b"] = line 
         elif line.startswith('C)'):
             options["option_c"] = line 
-        elif line.startswith("Correct answer:"):
-            correct_answer = line.replace('Correct answer','').strip()
+        elif line.startswith('Correct answer:'):
+            correct_answer = line.replace('Correct answer:', '').strip()
     
     return question, options.get('option_a'), options.get('option_b'), options.get('option_c'), correct_answer
 
