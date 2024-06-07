@@ -2,13 +2,12 @@
 {% extends 'base.html' %} {% block title %} Quiz Time! {% endblock %} {% block
 content %}
 <div class="container mt-lg-5">
-  <div class="quiz-intro">
+  <div class="quiz-container" id="quiz-container-el">
     <h2 class="text-center">CLICK THE BUTTON TO START</h2>
-    <form action="" method="post">
-        <button type="submit" class="btn btn-primary mt-4 mb-4">CLICK ME TO START</button>
-    </form>
+    <button type="submit" class="btn btn-primary mt-4 mb-4 text-center" id="start-quiz-btn-el">CLICK ME TO START</button>
   </div>
 </div>
-{% endblock %} {% block js %}
+{% endblock %} 
+{% block js %}
 <script src="{{ url_for('.static', filename='script.js') }}"></script>
 {% endblock %}
