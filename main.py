@@ -12,7 +12,7 @@ def create_app():
     def index():
         return "Hello, World!"
     
-    db.init_app()
+    db.init_app(app)
 
     with app.app_context():
         db.create_all()
