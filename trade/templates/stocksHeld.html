@@ -25,20 +25,20 @@
                         <td>{{ stock }}</td>
                         <td>{{ details[3] }}</td>
                         <td>{{ details[0] }}</td>
-                        <td>${{ details[1] }}</td>
-                        <td>${{ details[2] }}</td>
+                        <td>RM {{ "%.2f"|format(details[1]) }}</td>
+                        <td>RM {{ "%.2f"|format(details[2]) }}</td>
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td>CASH</td>
+                    <td>Balance:</td>
                     <td colspan=3></td>
-                    <td>RM {{ cash }}</td>
+                    <td>RM {{ "%.2f"|format(cash) }}</td>
                 </tr>
             </tbody>
             <tfoot style="font-weight: bold" align="center">
-                <td></td>
+                <td>Total:</td>
                 <td colspan=3></td>
-                <td>RM {{ grandTotal }}</td>
+                <td>RM {{ "%.2f"|format(grandTotal) }}</td>
             </tfoot>
         </table>
         
