@@ -34,18 +34,16 @@ nextQuestionBtnEl.addEventListener("click", (e) => {
   nextQuestionBtnEl.classList.add('hidden');
 });
 
-
 backToQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   reviewContainerEl.classList.add('hidden');
   quizContainerEl.classList.remove('hidden');
-  location.reload()
+  location.reload();
 });
 
 function startQuiz() {
   renderQuizQuestion();
 }
-
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
@@ -60,9 +58,9 @@ function renderQuizQuestion() {
       <div class="quiz-content">
         <h2>Question ${currentQuestionIndex + 1}</h2>
         <p>${questionText}</p>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${optionA}', '${correctAnswer}')">${optionA}</button>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${optionB}', '${correctAnswer}')">${optionB}</button>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${optionC}', '${correctAnswer}')">${optionC}</button>
+        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionA}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionA}</button>
+        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionB}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionB}</button>
+        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionC}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionC}</button>
       </div>
     `;
   } else {
@@ -70,8 +68,7 @@ function renderQuizQuestion() {
   }
 }
 
-
-function checkUserAnswer(userSelection, correctAnswer) {
+function checkUserAnswer(userSelection, correctAnswer, optionA, optionB, optionC) {
   let isCorrect;
 
   if (userSelection == correctAnswer) {
@@ -81,24 +78,24 @@ function checkUserAnswer(userSelection, correctAnswer) {
   } else {
     isCorrect = false;
   }
-  userAnswers.push({ question: questions[currentQuestionIndex], userSelection, correctAnswer, isCorrect });
+  userAnswers.push({ question: questions[currentQuestionIndex], userSelection, correctAnswer, isCorrect, explanation: "" });
+  getAnswerExplanation(questions[currentQuestionIndex].question, userSelection, correctAnswer, optionA, optionB, optionC, (explanation) => {
+    userAnswers[currentQuestionIndex].explanation = explanation;
+  });
   renderQuestionResult(userSelection, correctAnswer, isCorrect);
 }
-
 
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   nextQuestionBtnEl.classList.remove('hidden');
 
   if (isCorrect) {
-    incrementUserCash()
+    incrementUserCash();
     quizAnswerContainerEl.innerHTML = 
     `<h3>Hooray! Correct!</h3>
     <h5>Your answer: ${userSelection}</h5>
     <h5>Correct answer: ${correctAnswer}</h5>
     <p>You Earned $${moneyEarned}! Keep it up!</p>`;
-
-  } 
-  else {
+  } else {
     quizAnswerContainerEl.innerHTML = 
     `<h3>Oh darn! Wrong Answer.</h3>
     <h5>Your answer: ${userSelection}</h5>
@@ -120,6 +117,7 @@ function showReviewSection() {
         <p>Your answer: ${answer.userSelection}</p>
         <p>Correct answer: ${answer.correctAnswer}</p>
         <p>${answer.isCorrect ? 'Correct' : 'Wrong'}</p>
+        <p>Explanation: ${answer.explanation}</p>
       </div>
     `;
   });
@@ -129,5 +127,28 @@ function incrementUserCash() {
   fetch('/quiz/increment-cash')
        .then(res => res.json())
        .then(data => console.log(data))
-       .catch(err => console.log(err))
+       .catch(err => console.log(err));
+}
+
+function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, optionB, optionC, callback) {
+  fetch('/quiz/generate-explanation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      question: question,
+      user_answer: userAnswer,
+      correct_answer: correctAnswer,
+      option_a: optionA,
+      option_b: optionB,
+      option_c: optionC
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    callback(data.explanation);
+  })
+  .catch(error => console.error('Error fetching explanation:', error));
 }

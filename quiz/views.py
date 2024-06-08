@@ -31,6 +31,8 @@ def get_questions_from_api():
                 ],
                 model="llama3-8b-8192",
             )
+        
+
         question_content = chat_completion.choices[0].message.content
         question, option_a, option_b, option_c, correct_answer = extract_question_and_answer(question_content)
         questions.append({'question': question, 'option_a' : option_a, 'option_b' : option_b, 'option_c' : option_c, 'answer': correct_answer})
@@ -57,6 +59,50 @@ def extract_question_and_answer(question_content):
             correct_answer = line.replace('Correct answer:', '').strip()
     
     return question, options.get('option_a'), options.get('option_b'), options.get('option_c'), correct_answer
+
+
+@quiz.route('/generate-explanation', methods=['POST'])
+def generate_explanation():
+    print("I'm still running")
+    data = request.get_json()
+    question = data.get('question')
+    user_answer = data.get('user_answer')
+    correct_answer = data.get('correct_answer')
+    option_a = data.get('option_a')
+    option_b = data.get('option_b')
+    option_c = data.get('option_c')
+
+    explanation_prompt = f"""
+    Question: {question}
+    Options:
+    A) {option_a}
+    B) {option_b}
+    C) {option_c}
+    User's Answer: {user_answer}
+    Correct Answer: {correct_answer}
+    Please provide an explanation for why the correct answer is correct and why the user's answer is incorrect, if applicable. Do try to keep the response concise, if possible.
+    Respond as if you are talking to the user one-on-one.
+    If the user's answer was correct, also provide a brief explanation.
+    """
+
+    answers_chat = client.chat.completions.create(
+                messages=[
+                    {
+                        "role": 'system',
+                        'content': 'Assume the role of a financial expert who is also very good at teaching laymen technical finance knowledge.'
+                    },
+                    {
+                        "role": 'user',
+                        'content': explanation_prompt
+                    }
+                ],
+                model="llama3-8b-8192",
+            )
+
+    explanation = answers_chat.choices[0].message.content
+    return jsonify({'explanation': explanation})
+
+    
 
 # routes for 'quiz' blueprint
 @quiz.route('/take_quiz',methods=["GET"])
