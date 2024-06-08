@@ -5,6 +5,7 @@ let currentQuestionIndex = 0
 let questions = []
 let score = 0
 
+
 startQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault()
   fetch("/quiz/get-questions")
@@ -20,10 +21,6 @@ startQuizBtnEl.addEventListener("click", (e) => {
 
 
 function startQuiz() {
-  // if (currentQuestionIndex < questions.length) {
-  //   const question = questions[currentQuestionIndex]
-  //   renderQuizQuestion(question)
-  // }
   renderQuizQuestion()
 }
 
@@ -31,7 +28,7 @@ function startQuiz() {
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
     const question = questions[currentQuestionIndex]
-    quizContainerEl.innerHTML += `
+    quizContainerEl.innerHTML = `
     <div class="quiz-content">
         <h2>Question ${currentQuestionIndex + 1}</h2>
         <p>${question.question}</p>
@@ -51,7 +48,6 @@ function renderQuizQuestion() {
 function checkUserAnswer(userSelection, correctAnswer) {
   if (userSelection == correctAnswer) {
     score ++
-    
     console.log('Hooray! That is correct!')
     console.log(score)
   }
