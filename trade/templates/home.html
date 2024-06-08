@@ -41,9 +41,9 @@
 <body>
     <div class="container">
         <a href="#" class="button">Learn</a>
-        <a href="#" class="button">Quiz</a>
-        <a href="{{url_for('trade.stocktrade')}}" class="button">Trade</a>
-        <a href="{{url_for('rank.ranking')}}" class="button">Ranking</a>
+        <a href="{{ url_for('quiz.quiz_page') }}" class="button" target="_blank">Quiz</a>
+        <a href="{{url_for('trade.stocktrade')}}" class="button" target="_blank">Trade</a>
+        <a href="{{url_for('rank.ranking')}}" class="button" target="_blank">Ranking</a>
     </div>
 </body>
 </html>

@@ -34,6 +34,7 @@ nextQuestionBtnEl.addEventListener("click", (e) => {
   nextQuestionBtnEl.classList.add('hidden');
 });
 
+
 backToQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   reviewContainerEl.classList.add('hidden');
@@ -72,6 +73,7 @@ function renderQuizQuestion() {
 
 function checkUserAnswer(userSelection, correctAnswer) {
   let isCorrect;
+
   if (userSelection == correctAnswer) {
     score++;
     moneyEarned += 5;
@@ -86,13 +88,17 @@ function checkUserAnswer(userSelection, correctAnswer) {
 
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   nextQuestionBtnEl.classList.remove('hidden');
+
   if (isCorrect) {
+    incrementUserCash()
     quizAnswerContainerEl.innerHTML = 
     `<h3>Hooray! Correct!</h3>
     <h5>Your answer: ${userSelection}</h5>
     <h5>Correct answer: ${correctAnswer}</h5>
     <p>You Earned $${moneyEarned}! Keep it up!</p>`;
-  } else {
+
+  } 
+  else {
     quizAnswerContainerEl.innerHTML = 
     `<h3>Oh darn! Wrong Answer.</h3>
     <h5>Your answer: ${userSelection}</h5>
@@ -105,6 +111,7 @@ function showReviewSection() {
   quizContainerEl.classList.add('hidden');
   reviewContainerEl.classList.remove('hidden');
   reviewContentEl.innerHTML = '';
+
   userAnswers.forEach((answer, index) => {
     reviewContentEl.innerHTML += `
       <div class="review-item">
@@ -116,4 +123,11 @@ function showReviewSection() {
       </div>
     `;
   });
+}
+
+function incrementUserCash() {
+  fetch('/quiz/increment-cash')
+       .then(res => res.json())
+       .then(data => console.log(data))
+       .catch(err => console.log(err))
 }
