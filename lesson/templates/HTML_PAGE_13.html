@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Strategy for Trading</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1></h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Home</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Trading</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_7">Market</a>
+                <a href="HTML_PAGE_8">Stock</a>
+                <a href="HTML_PAGE_9">Strategy for Trading</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_2">Kids</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Adults</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">3 5 7 rule in trading</h1>
+    <p>The 3–5–7 rule in trading is a risk management principle that suggests allocating a certain percentage of your trading capital to different trades based on their risk levels. </p>
+    <p>
+        <ol>
+            <li>3% Rule</li>
+            <p>This suggests risking no more than 3% of your trading capital on any single trade.</br>
+            This helps limit the potential loss from any one trade and protects your overall capital.</p>
+            <li>5% Rule</li>
+            <p>This rule applies to the total risk exposure across all your open trades. </br>
+            It recommends limiting the total risk exposure of all your trades combined to no more than 5% of your trading capital.</br>
+            This means if you have multiple trades open simultaneously, their combined risk should not exceed 5%.</p>
+            <li>7% Rule</li>
+            <p>This is a more conservative version of the 5% rule.</br>
+            It suggests keeping the total risk exposure across all trades at 7% or lower, providing an additional buffer for risk management.</p>
+        </ol>
+    </p>
+    <p>These rules are designed to help traders manage their risk and avoid significant losses that could potentially wipe out their trading capital. By limiting the amount of capital risked on each trade, traders aim to preserve their overall account balance and maintain consistency in their trading approach. It’s important to note that while these rules provide guidelines, individual traders may choose to adjust them based on their risk tolerance, trading strategy, and market conditions.</p>
+    <a href="HTML_PAGE_12" class="previous">&laquo; Previous</a>
+</html>
+<!--quiz-->
+{% endblock %}

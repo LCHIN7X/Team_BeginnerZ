@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+    <title>Financial Literacy</title>
+    <link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Financial Literacy</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Home</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+        </li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Adults</a>
+            <div class="dropdown-content">
+            <a href="HTML_PAGE_7">Create a Budget</a>
+            <a href="HTML_PAGE_8">Pay off Debt</a>
+            <a href="HTML_PAGE_9">Plan for retirement</a>
+        </div>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_10" class="dropbtn">Trading</a>
+            <div class="dropdown-content">
+            <a href="HTML_PAGE_11">Market</a>
+            <a href="HTML_PAGE_12">Stock</a>
+            <a href="HTML_PAGE_13">Strategy for Trading</a>
+        </div>
+    </ul>
+    <h1 id="title1">What is Financial Literacy</h1>
+    
+    <h2 id="title2">Understanding Financial Literacy</h2>
+    <div class="column11">
+        <p> -Financial literacy is the ability to understand and effectively use various financial skills,  <br /> 
+            -including personal financial management, budgeting, and investing.<br /> 
+        </p>
+        <p> -When you are financially literate, you have the essential foundation for a smart relationship with money.  <br /> 
+            -his can help start a lifelong journey of learning about the financial aspects of your life. <br /> 
+            -The earlier you start to become financially literate, the better off you'll be because education is the key to a successful financial future.<br />
+        </p>
+    </div>
+    <h2 id="title2">Key Components of Financial Literacy</h2>
+    <ol>
+        <div class="row1">
+            <div class="column1">
+                <li>Understanding Financial Products And Concepts
+                    <p>Strengthen your knowledge of various financial products, from simple savings accounts to complex derivatives. 
+                       Familiar with basic concepts, such as compound interest, inflation, and taxation.
+                    </p>
+                </li>
+            </div>
+            <div class="column1">
+                <li>Insurance And Risk Management
+                    <p>Different products, such as health, life, auto, and property insurance, offer protection against various risks. Ensure adequate coverage based on your specific circumstances.</p>
+                </li>
+            </div>
+            <div class="column1">
+                <li>Retirement Planning
+                    <p>involves understanding pension plans, 401(k)s, and other retirement savings options, as well as Social Security, and how delaying benefits can increase monthly payouts.</p>
+                    <p>A comprehensive retirement plan considers your expected lifespan, desired retirement lifestyle, and potential healthcare costs.</p>
+                </li>
+            </div>
+            <div class="column1">
+                <li>Debt Management
+                    <p>Recognizing the impact of your credit score on interest rates, familiarizing yourself with the terms of debts, and creating a strategy to pay them off efficiently.</p>
+                </li>
+            </div>
+            <div class="column1">
+                <li>Saving And Investing
+                    <p>Setting aside a portion of your income for future use, while investing is putting that saved money into assets or ventures that can potentially yield returns.</p>
+                </li>
+            </div>
+            <div class="column1">
+                <li>Budgeting and Expense Management
+                    <p>Effective budgeting requires clearly understanding your financial inflows and outflows, setting realistic goals, and monitoring spending habits.</p>
+                </li>
+            </div>
+        </div>
+    </ol>
+    <a href="HTML_PAGE_2" class="next">Next &raquo;</a>
+</body>
+</html>
+
+{% endblock %}

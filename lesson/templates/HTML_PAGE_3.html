@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Earning</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Earning</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Earning</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_6">Adults</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Trading</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">How can children earn money?</h1>
+    <p>Adults must earn money to provide for their needs and wants. In this lesson children learn that money is earned and does not come free. Children also learn that money is limited in quantity.  Early training in earning small amounts of money provides a foundation and understanding that work and money are connected.</p>
+    <p>Young children perform certain tasks at home just because they are part of the family or household. Children can do additional tasks to earn money for their spending plans. Children need to distinguish between shared responsibilities as members of a family and responsibilities that earn them money.  This lesson introduces young children to activities and ideas for earning money. The money earned helps children meet their financial goals. Remember that the financial goals for a preschool-aged child may seem simple to an adult, but they are not simple to the child. Children learn the concept that money is a reward for working.</p>
+    <h2 id="title2">Goals</h2>
+    <p>Develop an understanding about working to acquire resources to meet needs and wants. </p>
+    <h2 id="title2">Lesson Objective</h2>
+    <p>
+        <ol>
+            <li>Recognize that money is earned from work done. </li>
+            <li>Understand that money is limited in quantity</li>
+        </ol> 
+    </p>
+    <h2 id="title2">How can children Earn Money?</h2>
+    <p>
+        <ol>
+            <li>Do chores and odd jobs around the house or neighborhood</li>
+            <p>Families can assign a dollar value to tasks like washing the dishes, vacuuming, folding laundry or pulling weeds.</p>
+            <li>Babysit, walk dogs and feed pets for pay</li>
+            <p>Establish a good rapport with your neighbors and you can make a solid hourly rate for looking after kids younger than you. Charging up to $20 an hour isn’t out of the question. Think you can do it? Ask your parents to help you spread the word, make flyers or send an email to let prospective clients know you’re ready to work.</p>
+            <li>Sell your stuff in person or online</li>
+            <p>Getting rid of unwanted clothes, books, toys, furniture and more can be another way to make money fast as a kid. Kids can organize a garage or yard sale, or sell items through apps and websites.</p>
+            <li>Sell lemonade in the summer or hot cocoa in the winter</li>
+            <p>Don’t have any items to sell? Set up a good old-fashioned lemonade stand (some states and cities require a permit, so check your area’s laws first) when it’s warm outside, and make your pitch to passersby.</p>
+            <li>Teach others a skill</li>
+            <p>You can host a class on how to draw or give music, cooking or soccer lessons.</p>
+            <li>Find local gigs through Nextdoor</li>
+            <p>Use social networking groups to find work in your community, if allowed. Teens 13 years of age and older can go beyond word-of-mouth and offer services such as babysitting, dog walking or mowing lawns </p>
+            <li>Freelance</li>
+            <p>Potential jobs include writing blog posts, designing logos, editing a podcast or creating a website.
+               Most freelancing marketplaces restrict eligibility to people 18 years old and over, but you’ll find some sites with younger age limits.</p>
+        </ol>
+    </p>
+    <a href="HTML_PAGE_2" class="previous">&laquo; Previous</a>
+    <a href="HTML_PAGE_4" class="next">Next &raquo;</a>
+</html>
+<!--quiz-->
+{% endblock %}

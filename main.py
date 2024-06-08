@@ -1,5 +1,5 @@
 from flask import Flask
-from models import db, Stock
+from models import db
 from flask_login import LoginManager
 
 DATABASE_NAME = 'database.db'
@@ -21,6 +21,9 @@ def create_app():
 
     from chatbot import chatbot
     app.register_blueprint(chatbot, url_prefix="/chatbot")
+
+    from lesson.views import lesson
+    app.register_blueprint(lesson, url_prefix="/lesson")
     
     db.init_app(app)
 

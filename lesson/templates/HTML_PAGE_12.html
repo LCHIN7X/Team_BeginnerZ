@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Stock</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1></h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Home</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Trading</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_7">Market</a>
+                <a href="HTML_PAGE_8">Stock</a>
+                <a href="HTML_PAGE_9">Strategy for Trading</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_2">Kids</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Adults</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">How do Stock Works?</h1>
+    <p>A stock is a financial instrument that represents ownership in a company or corporation and a proportionate claim on its assets and earnings. Stocks are also called shares or equity.</p>
+    <p>Owning stock means that a shareholder owns a slice of the company equal to the number of shares held as a proportion of the company’s total outstanding shares.</p>
+    <p>For example, an individual or entity that owns 100,000 shares of a company with one million outstanding shares would have a 10% ownership stake in it.</p>
+    <h1 id="title1">What is a stock exchange?</h1>
+    <p>Stock exchanges are secondary markets where existing shareholders can transact with potential buyers. Corporations listed on stock markets do not commonly buy and sell their shares but may engage in stock buybacks or issue new shares; however, these transactions occur outside of the framework of the exchange.</p>
+    <h1 id="title2">Buying and Selling</h1>
+    <p>
+        <ol>
+            <li>Common share</li>
+            <p>Common shares usually carry voting rights that enable the common shareholder to have a voice in corporate meetings and elections</p>
+            <p>Common stock can be further classified in terms of voting rights. Some companies have dual or multiple classes of stock, with different voting rights attached to each class. In such a dual-class structure, Class A shares may have 10 votes per share, while Class B shares may only have one vote per share. Dual- or multiple-class share structures are designed to enable the founders of a company to control its fortunes, strategic direction, and ability to innovate.</p>
+            <li>Preferred share</li>
+            <p>Preferred shares generally do not have voting rights. </p>
+            <p>Preferred shareholders have priority over common shareholders to receive dividends as well as assets in the event of a liquidation.</p>
+        </ol>
+    </p>
+    <a href="HTML_PAGE_11" class="previous">&laquo; Previous</a>
+    <a href="HTML_PAGE_13" class="next">Next &raquo;</a>
+</html>
+<!--quiz-->
+{% endblock %}
