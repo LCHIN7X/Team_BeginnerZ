@@ -20,7 +20,7 @@
   /* all page */
   
   .header {
-    color: #1b1b1c;
+    color: #cbcbd5;
     background-image: url(https://png.pngtree.com/background/20210709/original/pngtree-simple-technology-business-line-picture-image_938374.jpg);
     background-size: cover;
     padding: 20px;
@@ -31,7 +31,7 @@
   
   
   body {
-      background-color: #f5f5fa;
+      background-color: #f5f0f0;
     }
   
   
@@ -40,7 +40,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background-color: #8ca9e8;
+      background-color: #9ba8c5;
   }
     
   #link {
@@ -49,7 +49,7 @@
     
   #link a, .dropbtn {
       display: inline-block;
-      color: white;
+      color: rgb(68, 102, 130);
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
@@ -79,7 +79,7 @@
       text-align: center;
       font-family: 'Audiowide';
       font-size:60px;
-      color: #111010;
+      color: #0f0e0e;
       text-shadow: 4px 5px 2px #f3eded
     }
   
