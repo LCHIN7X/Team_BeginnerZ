@@ -12,8 +12,10 @@ let score = 0;
 let moneyEarned = 0;
 let userAnswers = [];
 
+
 startQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
+  renderLoadingAnimation()
   fetch("/quiz/get-questions")
     .then((res) => res.json())
     .then((data) => {
@@ -26,6 +28,7 @@ startQuizBtnEl.addEventListener("click", (e) => {
     .catch(error => console.error('Error fetching questions:', error));
 });
 
+
 nextQuestionBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   currentQuestionIndex++;
@@ -34,6 +37,7 @@ nextQuestionBtnEl.addEventListener("click", (e) => {
   nextQuestionBtnEl.classList.add('hidden');
 });
 
+
 backToQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   reviewContainerEl.classList.add('hidden');
@@ -41,9 +45,11 @@ backToQuizBtnEl.addEventListener("click", (e) => {
   location.reload();
 });
 
+
 function startQuiz() {
   renderQuizQuestion();
 }
+
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
@@ -58,15 +64,16 @@ function renderQuizQuestion() {
       <div class="quiz-content">
         <h2>Question ${currentQuestionIndex + 1}</h2>
         <p>${questionText}</p>
-        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionA}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionA}</button>
-        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionB}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionB}</button>
-        <button class='btn-primary btn mt-2 mb-2' onclick="checkUserAnswer('${optionC}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionC}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionA}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionA}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionB}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionB}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionC}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionC}</button>
       </div>
     `;
   } else {
     showReviewSection();
   }
 }
+
 
 function checkUserAnswer(userSelection, correctAnswer, optionA, optionB, optionC) {
   let isCorrect;
@@ -85,6 +92,7 @@ function checkUserAnswer(userSelection, correctAnswer, optionA, optionB, optionC
   renderQuestionResult(userSelection, correctAnswer, isCorrect);
 }
 
+
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   nextQuestionBtnEl.classList.remove('hidden');
 
@@ -95,7 +103,8 @@ function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
     <h5>Your answer: ${userSelection}</h5>
     <h5>Correct answer: ${correctAnswer}</h5>
     <p>You Earned $${moneyEarned}! Keep it up!</p>`;
-  } else {
+  } 
+  else {
     quizAnswerContainerEl.innerHTML = 
     `<h3>Oh darn! Wrong Answer.</h3>
     <h5>Your answer: ${userSelection}</h5>
@@ -103,6 +112,7 @@ function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
     <p>Better luck next time!</p>`;
   }
 }
+
 
 function showReviewSection() {
   quizContainerEl.classList.add('hidden');
@@ -123,12 +133,14 @@ function showReviewSection() {
   });
 }
 
+
 function incrementUserCash() {
   fetch('/quiz/increment-cash')
        .then(res => res.json())
        .then(data => console.log(data))
        .catch(err => console.log(err));
 }
+
 
 function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, optionB, optionC, callback) {
   fetch('/quiz/generate-explanation', {
@@ -151,4 +163,9 @@ function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, opti
     callback(data.explanation);
   })
   .catch(error => console.error('Error fetching explanation:', error));
+}
+
+
+function renderLoadingAnimation() {
+  quizContainerEl.innerHTML = '<div class="loader"></div>'
 }

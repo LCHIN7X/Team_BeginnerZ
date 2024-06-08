@@ -18,6 +18,11 @@ def get_questions_from_api():
     questions = []
 
     for _ in range(QUIZ_LENGTH):
+        prompt = """Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. 
+        Format each question like so: 
+        Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer, including option text>. 
+        Only include the question, question selections and the answer, nothing else. 
+        Every answer option must be valid and not None."""
         chat_completion = client.chat.completions.create(
                 messages=[
                     {
@@ -26,7 +31,7 @@ def get_questions_from_api():
                     },
                     {
                         "role": 'user',
-                        'content': "Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. Format each question like so: Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer, including option text>. Only include the question, question selections and the answer, nothing else. Every answer option must be valid and not None.",
+                        'content': prompt
                     }
                 ],
                 model="llama3-8b-8192",
@@ -73,6 +78,7 @@ def generate_explanation():
     option_c = data.get('option_c')
 
     explanation_prompt = f"""
+    Consider the question below, and the answer options.
     Question: {question}
     Options:
     A) {option_a}
@@ -80,9 +86,9 @@ def generate_explanation():
     C) {option_c}
     User's Answer: {user_answer}
     Correct Answer: {correct_answer}
-    Please provide an explanation for why the correct answer is correct and why the user's answer is incorrect, if applicable. Do try to keep the response concise, if possible.
+    If the user's answer was wrong, please provide an explanation for why the correct answer is correct and why the user's answer is incorrect.
+    If the user's answer was correct, also provide an explanation to elaborate more on why the other 2 answers are incorrect.
     Respond as if you are talking to the user one-on-one.
-    If the user's answer was correct, also provide a brief explanation.
     """
 
     answers_chat = client.chat.completions.create(
@@ -108,7 +114,8 @@ def generate_explanation():
 @quiz.route('/take_quiz',methods=["GET"])
 @login_required
 def quiz_page():        
-    return render_template('quiz.html')
+    cash = current_user.cash
+    return render_template('quiz.html',cash=cash)
 
 
 @quiz.route('/get-questions',methods=['GET'])

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 {% extends 'base.html' %} {% block title %} Quiz Time! {% endblock %} {% block content %}
 <div class="container mt-lg-5">
-  <div class="quiz-container" id="quiz-container-el">
-    <h2 class="text-center">CLICK THE BUTTON TO START</h2>
-    <button type="submit" class="btn btn-primary mt-4 mb-4 text-center" id="start-quiz-btn-el">CLICK ME TO START</button>
+  <div class="cash-div">
+    <i class="fa-solid fa-sack-dollar"></i>&nbsp;:&nbsp;&nbsp;${{ cash }}
   </div>
-  <div id="quiz-answer-container-el" class="mt-4 mb-2">
-                      
+  <div class="quiz-container" id="quiz-container-el">
+    <div class="typewriter-container">
+      <div class="typewriter-text">
+        Think you know finances? Take this quiz...
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4 mb-4 text-center" id="start-quiz-btn-el">Start The Quiz!</button>
+  </div>
+  <div id="quiz-answer-container-el" class="mt-4 mb-2 ml-2 mr-2">
+
   </div>
   <button id="next-question-btn-el" class="btn btn-outline-primary mt-4 hidden">Next Question</button>
   
