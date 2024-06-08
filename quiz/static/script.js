@@ -4,7 +4,7 @@ const quizContainerEl = document.getElementById('quiz-container-el')
 let currentQuestionIndex = 0
 let questions = []
 let score = 0
-
+let moneyEarned = 0
 
 startQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault()
@@ -27,22 +27,29 @@ function startQuiz() {
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
-    const question = questions[currentQuestionIndex]
+    const question = questions[currentQuestionIndex];
+    const questionText = question.question;
+    const optionA = question.option_a.replace(/'/g, "\\'");
+    const optionB = question.option_b.replace(/'/g, "\\'");
+    const optionC = question.option_c.replace(/'/g, "\\'");
+    const correctAnswer = question.answer.replace(/'/g, "\\'");
+
     quizContainerEl.innerHTML = `
-    <div class="quiz-content">
+      <div class="quiz-content">
         <h2>Question ${currentQuestionIndex + 1}</h2>
-        <p>${question.question}</p>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${question.option_a}', '${question.answer}')">${question.option_a}</button>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${question.option_b}', '${question.answer}')">${question.option_b}</button>
-        <button class='btn-primary btn' onclick="checkUserAnswer('${question.option_c}', '${question.answer}')">${question.option_c}</button>
-    </div>
-`;
-  }
-  else {
+        <p>${questionText}</p>
+        <button class='btn-primary btn' onclick="checkUserAnswer('${optionA}', '${correctAnswer}')">${optionA}</button>
+        <button class='btn-primary btn' onclick="checkUserAnswer('${optionB}', '${correctAnswer}')">${optionB}</button>
+        <button class='btn-primary btn' onclick="checkUserAnswer('${optionC}', '${correctAnswer}')">${optionC}</button>
+      </div>
+    `;
+  } else {
     quizContainerEl.innerHTML = `<h1>Quiz Complete!</h1>
-    <h2>Your score: ${score}/${questions.length}</h2>`
+    <h2>Your score: ${score}/${questions.length}</h2>
+    <h3>You earned $${moneyEarned}!</h3>`;
   }
 }
+
 
 
 function checkUserAnswer(userSelection, correctAnswer) {
@@ -50,6 +57,7 @@ function checkUserAnswer(userSelection, correctAnswer) {
     score ++
     console.log('Hooray! That is correct!')
     console.log(score)
+    moneyEarned += 5
   }
   else {
     console.log(userSelection)

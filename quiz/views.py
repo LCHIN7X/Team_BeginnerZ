@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, redirect, url_for, request, jsonif
 from groq import Groq
 from dotenv import load_dotenv
 import os
+from user.models import User
+from flask_login import current_user, login_required
 
 load_dotenv()
 
@@ -9,7 +11,6 @@ quiz = Blueprint('quiz',__name__,template_folder='templates',static_folder='stat
 QUIZ_LENGTH = 10
 API_KEY = os.getenv('API_KEY')
 client = Groq(api_key=API_KEY)
-
 
 # functions to get quiz questions from API 
 def get_questions_from_api():
@@ -24,7 +25,7 @@ def get_questions_from_api():
                     },
                     {
                         "role": 'user',
-                        'content': "Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. Format each question like so: Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer>. Only include the question, question selections and the answer, nothing else. Every answer option must be valid and not None.",
+                        'content': "Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. Format each question like so: Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer, including option text>. Only include the question, question selections and the answer, nothing else. Every answer option must be valid and not None.",
                     }
                 ],
                 model="llama3-8b-8192",
@@ -45,16 +46,16 @@ def extract_question_and_answer(question_content):
 
     for line in lines[1:]:
         if line.strip().startswith('A)'):
-            options['option_a'] = line 
+            options['option_a'] = line.strip()
         elif line.strip().startswith('B)'):
-            options["option_b"] = line 
+            options["option_b"] = line.strip()
         elif line.strip().startswith('C)'):
-            options["option_c"] = line 
+            options["option_c"] = line.strip()
         elif line.strip().startswith('Correct answer:'):
+            line = line.strip()
             correct_answer = line.replace('Correct answer:', '').strip()
     
     return question, options.get('option_a'), options.get('option_b'), options.get('option_c'), correct_answer
-
 
 # routes for 'quiz' blueprint
 @quiz.route('/take_quiz',methods=["GET"])
@@ -70,3 +71,4 @@ def get_questions():
     # [{'question': 'Question: What is the primary purpose of a 401(k) plan?', 'option_a': ' A) To provide immediate access to your retirement savings', 'option_b': ' B) To reduce your taxable income', 'option_c': ' C) To save for retirement', 'answer': 'C)'}, 
     # {'question': 'Question: What is the main purpose of compound interest in a savings account?', 'option_a': ' A) To save a fixed amount of money in a short period of time', 'option_b': ' B) To earn interest on interest over time', 'option_c': ' C) To prevent market fluctuations', 'answer': 'B) To earn interest on interest over time'}, {'question': 'Question: What is a mutual fund?', 'option_a': ' A) A type of life insurance policy', 'option_b': ' B) A professionally managed investment portfolio that pools money from many investors', 'option_c': ' C) A type of retirement account', 'answer': 'B)'}, {'question': 'Question: When evaluating the expenses of your daily expenses, which of the following is True?', 'option_a': 'A) Fixed expenses are expenses that can vary from month to month.', 'option_b': 'B) Fixed expenses are expenses that remain constant every month.', 'option_c': 'C) Fixed expenses are expenses that can be easily cut back on.', 'answer': 'B)'}, {'question': 'Question: What is the term for the amount of money required to buy something, especially an asset or an investment?', 'option_a': ' A) Value', 'option_b': ' B) Value at Risk (VaR)', 'option_c': ' C) Appreciation', 'answer': 'B) Value at Risk (VaR)'}, {'question': 'Question: What is the main purpose of a budget?', 'option_a': ' A) To track and manage income and expenses', 'option_b': ' B) To invest money for long-term growth', 'option_c': ' C) To save a certain amount of money', 'answer': 'A)'}, {'question': 'Question: What happens to the purchasing power of money over time due to inflation?', 'option_a': 'A) It increases', 'option_b': 'B) It remains the same', 'option_c': 'C) It decreases', 'answer': 'C) It decreases'}, {'question': "Question: What is the net effect on an individual's credit score when a credit card payment is made in full each month?", 'option_a': 'A) The payment has no effect on the credit score.', 'option_b': 'B) The payment increases the credit score because it shows responsible financial behavior.', 'option_c': 'C) The payment decreases the credit score because it implies a reduced credit utilization ratio.', 'answer': 'B) The payment increases the credit score because it shows responsible financial behavior.'}, {'question': 'Question: What is the main purpose of dollar-cost averaging in investing?', 'option_a': 'A) To take on high levels of risk to potentially earn higher returns', 'option_b': "B) To invest a fixed amount of money at regular intervals, regardless of the market's performance", 'option_c': 'C) To diversify a portfolio by investing in a variety of different asset classes', 'answer': 'B)'}, {'question': 'Question: What is the main purpose of having an emergency fund?', 'option_a': 'A) To invest in the stock market', 'option_b': 'B) To pay off high-interest debt', 'option_c': 'C) To cover 3-6 months of essential expenses in case of unexpected events', 'answer': 'C)'}]
     return jsonify({'questions' : questions})
+
