@@ -76,6 +76,11 @@ function renderQuizQuestion() {
 
 
 function checkUserAnswer(userSelection, correctAnswer, optionA, optionB, optionC) {
+  const buttons = document.querySelectorAll('.quiz-content button');
+  buttons.forEach(button => {
+    button.disabled = true;
+    button.classList.add('disabled');
+  });
   let isCorrect;
 
   if (userSelection == correctAnswer) {

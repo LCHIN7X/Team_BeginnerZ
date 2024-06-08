@@ -9,7 +9,7 @@ from models import db
 load_dotenv()
 
 quiz = Blueprint('quiz',__name__,template_folder='templates',static_folder='static')
-QUIZ_LENGTH = 3
+QUIZ_LENGTH = 10
 API_KEY = os.getenv('API_KEY')
 client = Groq(api_key=API_KEY)
 
@@ -68,7 +68,6 @@ def extract_question_and_answer(question_content):
 
 @quiz.route('/generate-explanation', methods=['POST'])
 def generate_explanation():
-    print("I'm still running")
     data = request.get_json()
     question = data.get('question')
     user_answer = data.get('user_answer')
