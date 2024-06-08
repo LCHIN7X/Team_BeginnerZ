@@ -24,7 +24,7 @@ def get_questions_from_api():
                     },
                     {
                         "role": 'user',
-                        'content': "Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. Format each question like so: Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer>. Only include the question, question selections and the answer, nothing else.",
+                        'content': "Generate a multiple-choice question regarding finances, with the goal of educating the user and increasing their financial literacy. Format each question like so: Question: <question text> \n A) <option A> \n B) <option B> \n C) <option C> \n Correct answer: <correct answer>. Only include the question, question selections and the answer, nothing else. Every answer option must be valid and not None.",
                     }
                 ],
                 model="llama3-8b-8192",
@@ -33,23 +33,25 @@ def get_questions_from_api():
         question, option_a, option_b, option_c, correct_answer = extract_question_and_answer(question_content)
         questions.append({'question': question, 'option_a' : option_a, 'option_b' : option_b, 'option_c' : option_c, 'answer': correct_answer})
 
-        return questions
+    return questions
         
 
 def extract_question_and_answer(question_content):
     lines = question_content.split('\n')
+    print(lines)
     question = lines[0]
 
     options = {}
+    correct_answer = None
 
     for line in lines[1:]:
-        if line.startswith('A)'):
+        if line.strip().startswith('A)'):
             options['option_a'] = line 
-        elif line.startswith('B)'):
+        elif line.strip().startswith('B)'):
             options["option_b"] = line 
-        elif line.startswith('C)'):
+        elif line.strip().startswith('C)'):
             options["option_c"] = line 
-        elif line.startswith('Correct answer:'):
+        elif line.strip().startswith('Correct answer:'):
             correct_answer = line.replace('Correct answer:', '').strip()
     
     return question, options.get('option_a'), options.get('option_b'), options.get('option_c'), correct_answer
@@ -64,5 +66,4 @@ def quiz_page():
 @quiz.route('/get-questions',methods=['GET'])
 def get_questions():
     questions = get_questions_from_api()
-    print(questions)
     return jsonify({'questions' : questions})

@@ -2,7 +2,8 @@ const startQuizBtnEl = document.getElementById("start-quiz-btn-el");
 const quizContainerEl = document.getElementById('quiz-container-el')
 
 
-startQuizBtnEl.addEventListener("click", () => {
+startQuizBtnEl.addEventListener("click", (e) => {
+  e.preventDefault()
   fetch("/quiz/get-questions")
     .then((res) => res.json())
     .then((data) => {
@@ -25,7 +26,7 @@ function renderQuizQuestion(question, index) {
         <p>${question.option_b}</p>
         <p>${question.option_c}</p>
         
-        <p>Answer: ${question.answer}</p>
+        <p>Correct Answer: ${question.answer}</p>
     </div>
 `;
 }
