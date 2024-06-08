@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from models import db,Stock
+from models import db
 from user.models import User, History
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import login_required, current_user
@@ -35,7 +35,7 @@ def buy():
         shares = request.form.get("shares")
         stock = lookup(symbol)
 
-        # Validate form input
+        
         if not symbol:
             flash("Please enter the correct symbol")
             return redirect(url_for("trade.buy"))
@@ -58,24 +58,18 @@ def buy():
         user_cash = user.cash
         total_cost = float(price) * int(shares)
 
-        # Check if the user has enough money
+        
         if user_cash < total_cost:
             flash("Sorry! You don't have enough money")
             return redirect(url_for("trade.buy"))
 
         try:
-            # Update the user's cash
+            # update user cash
             user.cash -= total_cost
             db.session.commit()
 
-            # Insert the transaction into history
-            new_history = History(
-                user_id=current_user.id,
-                price=float(price),
-                shares=int(shares),
-                date=date.today(),
-                symbol=symbol.upper()
-            )
+            # insert transaction into history
+            new_history = History(user_id=current_user.id,price=float(price),shares=int(shares),date=date.today(),symbol=symbol.upper())
             db.session.add(new_history)
             db.session.commit()
 
@@ -159,17 +153,17 @@ def history():
 def recommendations():
     groq_api_key = "a74c1d6a9bfc48a096826ab16608dd72"  
 
-    # Create an instance of ChatGroq
+    # create an instance of ChatGroq
     groq_instance = ChatGroq(groq_api_key=groq_api_key, model_name='llama3-8b-8192')
 
-    # Fetch stock data
+    # fetch stock data
     stock_data = lookup(["JPM", "WFC", "BAC", "HSBC", "C", "MA", "AAPL", "MSFT", "GOOGL", "FB", "ORCL", "INTC", "AMZN", "BABA", "T", "WMT", "CHL", "V"])
 
-    # Assuming stock_data is a list of dictionaries, extract relevant information
+    # assuming stock_data is a list
     names = [data['company'] for data in stock_data]
     prices = [data['price'] for data in stock_data]
 
-    # Ask AI for recommendations using the instance method
+    # ask AI for recommendations using the instance method
     recommendations = groq_instance.get_recommendations(stock_data)
 
     return render_template("recommendations.html", names=names, prices=prices, recommendations=recommendations)
@@ -185,16 +179,16 @@ def stocksHeld():
             flash("You must be logged in to view this page.")
             return redirect(url_for("views.login"))
 
-        # Fetch user data
+        
         user = User.query.get(user_id)
         if user is None:
             flash("User not found.")
             return redirect(url_for("views.login"))
 
-        # Fetch history data
+        # fetch history data
         historyy = db.session.query(History.symbol, db.func.sum(History.shares).label('shares')).filter_by(user_id=user_id).group_by(History.symbol).all()
 
-        # Prepare portfolio and calculate total value
+        # prepare portfolio and calculate total value
         portfolio = {}
         grandTotal = 0.0
         errors = []
@@ -202,13 +196,13 @@ def stocksHeld():
             if stock.shares == 0:
                 continue
 
-            # Make API request
+            #  API request
             response = requests.get(f"https://api.twelvedata.com/quote?symbol={stock.symbol}&apikey={api_key}").json()
             
-            # Log the full response for debugging
+            # log the full response for debugging
             print(f"API response for {stock.symbol}: {response}")
 
-            # Use 'price' if available, otherwise use 'close'
+            # 'price' if available, otherwise use 'close'
             price = None
             if "price" in response:
                 price = float(response["price"])
@@ -219,7 +213,7 @@ def stocksHeld():
                 grandTotal += stock.shares * price
                 portfolio[stock.symbol.upper()] = [stock.shares, price, stock.shares * price, response["name"]]
             else:
-                # Handle missing fields and log the error
+                # handle missing fields and log the error
                 missing_fields = []
                 if price is None:
                     missing_fields.append("price or close")
@@ -227,7 +221,7 @@ def stocksHeld():
                     missing_fields.append("name")
                 errors.append(f"API error for {stock.symbol}: Missing fields {', '.join(missing_fields)}. Full response: {response}")
 
-        # Display any accumulated errors
+        # display any accumulated errors
         for error in errors:
             flash(error)
         

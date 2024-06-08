@@ -56,7 +56,7 @@ def ask():
     return jsonify({"response": formatted_response})
 
 def format_response(response):
-    # Limit the response to around 5 points
+    # limit the response to around 5 points
     points = response.split('\n')
     if len(points) > 5:
         points = points[:5]
@@ -70,16 +70,16 @@ class ChatGroq:
     def get_recommendations(self, stock_data):
         recommendations = {}
         for stock in stock_data:
-            # Example recommendation logic based on stock price
+            # recommendation based on stock price
             if stock['price'] < 100:
                 recommendations[stock['company']] = "Strong Buy"
             elif 100 <= stock['price'] < 200:
                 recommendations[stock['company']] = "Buy"
             else:
-                recommendations[stock['company']] = "Hold"  # Default recommendation
+                recommendations[stock['company']] = "Hold" 
         return recommendations
 
-        return recommendations
+        
 
 
 

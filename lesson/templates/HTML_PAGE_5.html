@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Spending</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Spending</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Spending</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_6">Adults</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Trading</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">Allowances and Spending Plans</h1>
+    <p>Children are capable of managing small amounts of money. They can divide their money into several categories, including “spend,” “save,” and “give.” At the same time, they can spend their money and keep a record of what was spent.  This lesson provides an introduction to allowances for third through sixth graders. Allowances are the first step to understanding written spending plans or budgets. With guidance managing allowances in childhood, children can become financially responsible adults. Adults with effective budget skills create healthier family relationships and contribute to building a stronger economy.</p>
+    <h2 id="title2">Goals</h2>
+    <p>Provide practice developing effective spending plans and following where money goes. </p>
+    <h2 id="title2">Lesson Objective</h2>
+    <p>
+        <ol>
+            <li>Recognize how to divide an allowance into a spending plan.</li>
+            <li>Learn how to balance income and expenses. </li>
+            <li>Gain confidence in preparing spending plans. </li>
+        </ol> 
+    </p>
+    <h2 id="title2">5 Steps to Create a Budget for Kids</h2>
+    <p>
+        <ol>
+            <li>Calculate their “income” (a.k.a. allowance) </li>
+            <p>No matter how old your kiddo is, giving your kids an allowance is a good strategy to provide them with a regular “income.” Some experts say the child’s age should equal the dollars per week, but crunch the numbers using our allowance calculator and figure out what works best for your family. 
+               The point is that money needs to come in before it goes out, and your child needs a fixed dollar amount they can build their budget around.</p>
+            <li> Identify their fixed and variable costs </li>
+            <p>Planning for this in their budget now helps prepare teens for the inevitable day when they’re paying fixed expenses to live on their own or insure their car. 
+               Then teach your kid the wonderful later-in-life gift of living out of the red</p>
+            <li>Discuss the difference between needs and wants</li>
+            <p>Distinguishing the difference between needs and wants. While you’ve probably had practice recognizing the familiar feeling of not needing another black dress, children and teenagers aren’t always great at restraint.</p>
+            <li>Have your child set up savings goals (or the 50/30/20 rule) </li>
+            <p>The 50-30-20 rule recommends putting 50% of your money toward needs, 30% toward wants, and 20% toward savings.</p>
+            <li>Decide on budget categories and the percentage of income that will go into each</li>
+            <p>Provided your kid completes their part of the bargain and saves just a bit, take a step back and let them make a list of budget categories that matter to them, such as clothing, toys, entertainment, snacks, trendy shoes, and even an Xbox. </p>
+        </ol>
+    </p>
+    <a href="HTML_PAGE_3" class="previous">&laquo; Previous</a>
+    <a href="HTML_PAGE_6" class="next">Next &raquo;</a>
+</html>
+<!--quiz-->
+{% endblock %}

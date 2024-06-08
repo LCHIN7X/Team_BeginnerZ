@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Saving</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Saving</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Saving</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML PAGE 3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_6">Adults</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Trading</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">Money Responsibility</h1>
+    <p>Successful money management includes keeping records of money spent. This includes having the skills to know how much money is available, how much money has been spent, and how much money must be saved for future needs.  This lesson introduces elementary-aged children to the concept of being responsible for managing money through accurate record-keeping. It provides them with activities and worksheets that demonstrate the need to be accountable for how they spend and save money.</p>
+    <p>Young children perform certain tasks at home just because they are part of the family or household. Children can do additional tasks to earn money for their spending plans. Children need to distinguish between shared responsibilities as members of a family and responsibilities that earn them money.  This lesson introduces young children to activities and ideas for earning money. The money earned helps children meet their financial goals. Remember that the financial goals for a preschool-aged child may seem simple to an adult, but they are not simple to the child. Children learn the concept that money is a reward for working.</p>
+    <h2 id="title2">Goals</h2>
+    <p>Recognize various tools and methods to keep a budget plan balanced. Think about what happens when attention to money is neglected.  </p>
+    <h2 id="title2">Lesson Objective</h2>
+    <p>
+        <ol>
+            <li>Apply math skills to balance a spending plan. </li>
+            <li>Recognize the importance of keeping purchase records. </li>
+            <li>Gain an understanding of spending behavior outcomes. 
+            </li>
+        </ol> 
+    </p>
+    <h2 id="title2">The 3 Jar Money System</h2>
+    <p>The 3 jar system is a popular way to begin teaching children how to budget. With this system, you give your child three clear jars, each representing a different fund: spending, saving, and giving. The child will then divide their money into the jars with your guidance. Budgeting their money in this way teaches children to actively plan for their current and future wants. Encourage your child to stick to their budget. If they fall short in one category, the goal is to help the child modify their behavior or budget instead of pulling from another jar. For example, if your child would like to spend more money than they have in the spending jar, they should re-prioritize their wants, earn more money, or rethink their budget instead of pulling from the saving or giving jars.</p>
+    <ol>
+        <li>The Saving Jar</li>
+        <p>The saving jar teaches kids to set and work toward goals. This shouldn’t be money put away for a nebulous purpose. It should be specific. Does your child want to save up for a new game? Or perhaps a certain toy? Help your child determine what they want and then, every time they go to separate their money into their jars, remind them that the more money they’re willing to give up now, the sooner they can reach this goal.</p>
+        <p>It could help to create a general “rule” with your child, like 30% of their money should always go to saving or for every $2 in the spending jar, one should go to saving—however you and your child decide to prioritize and divide the money is fine. The goal is to impart the importance of saving and begin building the habit.</p>
+        <li>The Spending Jar</li>
+        <p>The spending jar is all about what kids want to buy now. This is how they finance little things like candy bars or trinkets at the grocery store. This budget can also include budgeting for bigger things like clothing, school supplies, or even food if you decide you want your child to pay for some of those things themself. Just remember that you need to give them an avenue to earn the money to cover whatever you expect them to pay for.</p>
+        <li>The Giving Jar</li>
+        <p>The giving jar encourages children to think about others. Help them choose a cause that’s important to them, perhaps a charity that supports an animal they like or a Secret Santa fund for a family in your community. The giving jar can also go toward gifts for other people—a birthday gift for a friend, a thank you present for a teacher, etc. When it comes time to donate the money they’ve saved, do your best to find a way to show them the impact of their generosity. Even a little goes a long way, and this is a great way to teach that principle.</p>
+        <li>The Optional 4th Jar for Investing</li>
+        <p>Another option is to include a 4th jar dedicated to investing. The idea is for your child to set the money aside and you to help them invest it, perhaps by buying a few shares with their money in your portfolio. This crucial life skill helps people build their wealth and secure their future. Unfortunately, the idea of investing is intimidating to many, especially when you understand the potential for loss. While it’s always important to be careful, learning the basics early will help increase your child’s confidence and start them off on the right foot. If you feel unsure about how to start teaching about investing, check out this article about teaching children about money.</p>
+    </ol>
+    <a href="HTML_PAGE_3" class="previous">&laquo; Previous</a>
+    <a href="HTML_PAGE_5" class="next">Next &raquo;</a>
+</html>
+<!--quiz-->
+{% endblock %}
