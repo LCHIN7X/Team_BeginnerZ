@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chat with Groq
+{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; height: 100vh;">
+    <hr>
+    <h1>Chat with Groq!</h1>
+    <hr>
+    <div style="display: flex; align-items: center;">
+        <input type="text" id="user-question" class="input-field" placeholder="Ask a question">
+        <button class="chat-button" onclick="askQuestion()">Ask</button>
+    </div>
+    <div id="response" class="response"></div>
+</div>
+
+<script>
+    async function askQuestion() {
+        const userQuestion = document.getElementById('user-question').value;
+
+        const response = await fetch('/chatbot/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'question': userQuestion
+            })
+        });
+
+        const data = await response.json();
+        document.getElementById('response').innerHTML = "Chatbot: " + data.response;
+    }
+</script>
+
+<style>
+    .input-field {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+    .chat-button {
+        background-color: #999999;
+        color: #ffffff;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .chat-button:hover {
+        background-color: #666666;
+    }
+    .response {
+        margin-top: 20px;
+        font-size: 18px;
+        text-align: left;
+        white-space: pre-wrap;
+    }
+</style>
+{% endblock %}
