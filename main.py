@@ -2,7 +2,6 @@ from flask import Flask
 from models import db
 from flask_login import LoginManager
 
-
 DATABASE_NAME = 'database.db'
 
 def create_app():
@@ -19,9 +18,12 @@ def create_app():
 
     from ranking.views import rank
     app.register_blueprint(rank, url_prefix="/rank")
+
+    
+    from chatbot import chatbot
+    app.register_blueprint(chatbot, url_prefix="/chatbot")
     
     db.init_app(app)
-   
 
     with app.app_context():
         db.create_all()
