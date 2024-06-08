@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Kids</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Kids</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Home</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+        </li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Adults</a>
+            <div class="dropdown-content">
+            <a href="HTML_PAGE_7">Create a Budget</a>
+            <a href="HTML_PAGE_8">Pay off Debt</a>
+            <a href="HTML_PAGE_9">Plan for retirement</a>
+        </div>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_10" class="dropbtn">Trading</a>
+            <div class="dropdown-content">
+            <a href="HTML_PAGE_11">Market</a>
+            <a href="HTML_PAGE_12">Stock</a>
+            <a href="HTML_PAGE_13">Strategy for Trading</a>
+        </div>
+    </ul>
+    <h1 id="title1">What is Money?</h1>
+    <p>Money is the medium of exchange for most goods and services. Different coins and paper money have different values.  Children need the ability to recognize the names and values of different coins and bills used in exchange for goods and services. This lesson helps children identify the names of coins and grasp their relative values in terms of purchasing power. We present games and activities that will help children acquire this knowledge</p>
+    <h2 id="title2">Goals</h2>
+    <p>Provide an understanding and awareness of the numerical value of coins and paper currency. </p>
+    <h2 id="title2">Lesson Objective</h2>
+    <p>
+        <ol>
+            <li>Understand the exchange value of coins.</li>
+            <li>Learn the names of coins. </li>
+        </ol> 
+    </p>
+    <h2 id="title2">Exchange Value of Coins</h2>
+    <iframe style="max-width:100%" src="https://wordwall.net/ms/embed/f006797054b14be390ac6f1a8d925605?themeId=1&templateId=5&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    <h2 id="title2">Learn the names of coins</h2>
+    <iframe style="max-width:100%" src="https://wordwall.net/embed/f8b2586e64f64185adade518a377c022?themeId=46&templateId=48&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    <a href="HTML_PAGE_1" class="previous">&laquo; Previous</a>
+    <a href="#" >Quiz </a>
+    <a href="HTML_PAGE_3" class="next">Next &raquo;</a>
+</html>
+{% endblock %}

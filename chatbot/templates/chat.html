@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chat with Groq
+{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; height: 100vh;">
+    <hr>
+    <h1>Chat with Groq!</h1>
+    <hr>
+    <div style="display: flex; align-items: center;">
+        <input type="text" id="user-question" class="input-field" placeholder="Ask a question" weight="150" >&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="chat-button" onclick="askQuestion()">Ask</button>
+    </div>
+    <div id="response" class="response"></div>
+</div>
+<hr>
+
+<script>
+    async function askQuestion() {
+        const userQuestion = document.getElementById('user-question').value;
+
+        const response = await fetch('/chatbot/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'question': userQuestion
+            })
+        });
+
+        const data = await response.json();
+        document.getElementById('response').innerHTML = "Chatbot: " + data.response;
+    }
+</script>
+
+{% endblock %}

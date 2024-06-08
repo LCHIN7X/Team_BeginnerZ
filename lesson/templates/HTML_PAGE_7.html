@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+<title>Create a Budget</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Create a Budget</h1>
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Create a Budget</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Adults</a>
+            <div class="dropdown-content">
+                <a href="HTML PAGE 7">Create a Budget</a>
+                <a href="HTML PAGE 8">Pay off Debt</a>
+                <a href="HTML_PAGE_9">Plan for Retirement</a>
+            </div>
+            <li id="link"><a href="HTML_PAGE_2">Kids</a></li>
+            <li id="link"><a href="HTML_PAGE_10">Trading</a></li>
+            </li>
+    </ul>
+    <h1 id="title1">Create a Budget</h1>
+    <p>Most people need some way of seeing where their money is going each month. A budget can help you feel more in control of your finances and make it easier to save money for your goals. The trick is to figure out a way to track your finances that works for you. The following steps can help you create a budget.</p>
+    <h2 id="title2">How to create a Budget?</h2>
+    <p>
+        <ol>
+            <li>Calculate your net income</li>
+            <p>The foundation of an effective budget is your net income. That’s your take-home pay—total wages or salary minus deductions for taxes and employer-provided programs such as retirement plans and health insurance. Focusing on your total salary instead of net income could lead to overspending because you’ll think you have more available money than you do. If you’re a freelancer, gig worker, contractor or are self-employed, make sure to keep detailed notes of your contracts and pay in order to help manage irregular income.</p>
+            <li>Track your spending</li>
+            <p>Packing and categorizing your expenses can help you determine what you are spending the most money on and where it might be easiest to save.
+               Begin by listing your fixed expenses. These are regular monthly bills such as rent or mortgage, utilities and car payments. Next list your variable expenses—those that may change from month to month, such as groceries, gas and entertainment. This is an area where you might find opportunities to cut back. Credit card and bank statements are a good place to start since they often itemize or categorize your monthly expenditures.</p>
+            <li>Set realistic goal</li>
+            <p>Before you start sifting through the information you’ve tracked, make a list of your short- and long-term financial goals. Short-term goals should take around one to three years to achieve and might include things like setting up an emergency fund or paying down credit card debt. Long-term goals, such as saving for retirement or your child’s education, may take decades to reach. Remember, your goals don’t have to be set in stone, but identifying them can help motivate you to stick to your budget.</p>
+            <li>Make a plan</li>
+            <p>Break down your expenses even further, between things you need to have and things you want to have. For instance, if you drive to work every day, gasoline counts as a need. A monthly music subscription, however, may count as a want. This difference becomes important when you’re looking for ways to redirect money to your financial goals.</p>
+            <li>Adjust your spending to stay on budget</li>
+            <p>Make any necessary adjustments so that you don’t overspend and have money to put toward your goals. Look toward your “wants” as the first area for cuts. Can you skip movie night in favor of a movie at home? If you’ve already adjusted your spending on wants, take a closer look at your spending on monthly payments. On close inspection a “need” may just be a “hard to part with.”</p>
+            <li>Review your budget regularly</li>
+            <p>Once your budget is set, it’s important to review it and your spending on a regular basis to be sure you are staying on track. Few elements of your budget are set in stone: You may get a raise, your expenses may change or you may reach a goal and want to plan for a new one. Whatever the reason, get into the habit of regularly checking in with your budget following the steps above.</p>
+        </ol>
+    </p>
+    <a href="HTML_PAGE_6" class="previous">&laquo; Previous</a>
+    <a href="HTML_PAGE_8" class="next">Next &raquo;</a>
+</html>
+<!--quiz-->
+{% endblock %}

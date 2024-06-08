@@ -2,7 +2,6 @@ from flask import Flask
 from models import db
 from flask_login import LoginManager
 
-
 DATABASE_NAME = 'database.db'
 
 def create_app():
@@ -14,14 +13,19 @@ def create_app():
     from user.views import views
     app.register_blueprint(views, url_prefix="/views")
 
-    from trade import views as trade_views  
-    app.register_blueprint(trade_views.trade, url_prefix="/trade")
+    from trade.views import trade
+    app.register_blueprint(trade, url_prefix="/trade")
 
     from ranking.views import rank
     app.register_blueprint(rank, url_prefix="/rank")
+
+    from chatbot import chatbot
+    app.register_blueprint(chatbot, url_prefix="/chatbot")
+
+    from lesson.views import lesson
+    app.register_blueprint(lesson, url_prefix="/lesson")
     
     db.init_app(app)
-   
 
     from quiz.views import quiz 
     app.register_blueprint(quiz,url_prefix="/quiz")
