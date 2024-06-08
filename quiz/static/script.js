@@ -2,11 +2,15 @@ const startQuizBtnEl = document.getElementById("start-quiz-btn-el");
 const quizContainerEl = document.getElementById('quiz-container-el');
 const quizAnswerContainerEl = document.getElementById('quiz-answer-container-el');
 const nextQuestionBtnEl = document.getElementById('next-question-btn-el');
+const reviewContainerEl = document.getElementById('review-container-el');
+const reviewContentEl = document.getElementById('review-content-el');
+const backToQuizBtnEl = document.getElementById('back-to-quiz-btn-el');
 
 let currentQuestionIndex = 0;
 let questions = [];
 let score = 0;
 let moneyEarned = 0;
+let userAnswers = [];
 
 startQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
@@ -16,6 +20,7 @@ startQuizBtnEl.addEventListener("click", (e) => {
       quizContainerEl.innerHTML = '';
       questions = data.questions;
       currentQuestionIndex = 0;
+      userAnswers = [];
       startQuiz();
     })
     .catch(error => console.error('Error fetching questions:', error));
@@ -29,9 +34,17 @@ nextQuestionBtnEl.addEventListener("click", (e) => {
   nextQuestionBtnEl.classList.add('hidden');
 });
 
+backToQuizBtnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  reviewContainerEl.classList.add('hidden');
+  quizContainerEl.classList.remove('hidden');
+  location.reload()
+});
+
 function startQuiz() {
   renderQuizQuestion();
 }
+
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
@@ -52,28 +65,24 @@ function renderQuizQuestion() {
       </div>
     `;
   } else {
-    quizContainerEl.innerHTML = `<h1>Quiz Complete!</h1>
-    <h2>Your score: ${score}/${questions.length}</h2>
-    <h3>You earned $${moneyEarned}!</h3>`;
+    showReviewSection();
   }
 }
+
 
 function checkUserAnswer(userSelection, correctAnswer) {
   let isCorrect;
   if (userSelection == correctAnswer) {
     score++;
-    console.log('Hooray! That is correct!');
-    console.log(score);
     moneyEarned += 5;
     isCorrect = true;
   } else {
-    console.log(userSelection);
-    console.log(correctAnswer);
-    console.log("Oops! Wrong Answer!");
     isCorrect = false;
   }
+  userAnswers.push({ question: questions[currentQuestionIndex], userSelection, correctAnswer, isCorrect });
   renderQuestionResult(userSelection, correctAnswer, isCorrect);
 }
+
 
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   nextQuestionBtnEl.classList.remove('hidden');
@@ -90,4 +99,21 @@ function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
     <h5>Correct answer: ${correctAnswer}</h5>
     <p>Better luck next time!</p>`;
   }
+}
+
+function showReviewSection() {
+  quizContainerEl.classList.add('hidden');
+  reviewContainerEl.classList.remove('hidden');
+  reviewContentEl.innerHTML = '';
+  userAnswers.forEach((answer, index) => {
+    reviewContentEl.innerHTML += `
+      <div class="review-item">
+        <h4>Question ${index + 1}</h4>
+        <p>${answer.question.question}</p>
+        <p>Your answer: ${answer.userSelection}</p>
+        <p>Correct answer: ${answer.correctAnswer}</p>
+        <p>${answer.isCorrect ? 'Correct' : 'Wrong'}</p>
+      </div>
+    `;
+  });
 }

@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
     color: white;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -10,6 +12,11 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+}
+
+.container {
+    padding: 1em;
+    margin: 1em;
 }
 
 .hidden {
