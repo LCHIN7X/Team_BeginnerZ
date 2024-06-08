@@ -93,30 +93,40 @@ body {
   justify-content: center;
 }
 
-#quiz-container-el, #quiz-answer-container-el {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
-/* New styles for the quiz grid layout */
 .quiz {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3em;
   align-items: start;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 95vw;
+  margin: 0 auto;
+  border: 1px solid white;
 }
 
 .quiz-container {
   grid-column: 1 / span 1;
+  justify-self: center;
 }
 
 #quiz-answer-container-el {
   grid-column: 2 / span 1;
   align-self: start; 
+  justify-self: center;
+}
+
+#review-content-el {
+  display: grid;
+  padding: 2em;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em 2em;
+  width: 100%;
+}
+
+.review-item {
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: auto;
 }
 
 /* Responsive adjustments */
@@ -129,3 +139,4 @@ body {
     grid-column: 1 / span 1;
   }
 }
+
