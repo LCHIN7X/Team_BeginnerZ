@@ -61,14 +61,15 @@
   }
     
   #link.dropdown {
-      display: inline-block;
+    position: relative;
+    display: inline-block;
   }
     
   .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #b3a0ea;
-      z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #b3a0ea;
+    z-index: 1;
   }
     
   .dropdown:hover .dropdown-content {

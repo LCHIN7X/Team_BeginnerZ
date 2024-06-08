@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Knowledge About Finance and Trading
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>Knowledge About Finance and Trading</h1>
+    
+    <div style="margin-top: 20px; text-align: left; display: inline-block; width: 80%; margin-left: auto; margin-right: auto;">
+        <h2 style="text-align: center;">Knowledge on {{ topic }}</h2>
+        <p style="font-size: 1.5em; font-weight: bold; line-height: 1.6; text-align: center;">
+            {{ knowledge.split('\n\n')[0] }}
+        </p>
+        <p style="line-height: 1.6; white-space: pre-wrap;">{{ knowledge.split('\n\n')[1] }}</p>
+    </div>
+</div>
+{% endblock %}
