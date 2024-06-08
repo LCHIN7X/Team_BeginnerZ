@@ -1,39 +1,39 @@
 import requests
 
-def lookup(symbol):
-    
-
-    # Reject symbol if it starts with caret
-    if symbol.startswith("^"):
-        return None
-
-    # Reject symbol if it contains comma
-    if "," in symbol:
-        return None
+def lookup(symbols):
+    if isinstance(symbols, str):
+        symbols = [symbols]
 
     api_key = "a74c1d6a9bfc48a096826ab16608dd72"
-    url = f"https://api.twelvedata.com/quote?symbol={symbol}&apikey={api_key}"
+    stock_data = []
 
-    try:
-        response = requests.get(url).json()
-        
-        if "code" in response:
-            # Handling error response
-            return None
+    for symbol in symbols:
+        if symbol.startswith("^") or "," in symbol:
+            continue
 
-        # Return stock's name, price, and symbol
-        return {
-            "price": response.get("close"),
-            "company": response.get("name"),
-            "symbol": symbol.upper()
-        }
+        url = f"https://api.twelvedata.com/quote?symbol={symbol}&apikey={api_key}"
 
-    except requests.RequestException as e:
-        print(f"Request error fetching data: {e}")
-        return None
-    except KeyError as e:
-        print(f"KeyError fetching data: {e}")
-        return None
-    except Exception as e:
-        print(f"Error fetching data: {e}")
-        return None
+        try:
+            response = requests.get(url).json()
+
+            if "code" in response:
+                continue
+
+            price = response.get("close")
+            if price is not None:
+                price = round(float(price), 2)  
+
+            stock_data.append({
+                "symbol": symbol.upper(),
+                "price": price,
+                "company": response.get("name")
+            })
+
+        except requests.RequestException as e:
+            print(f"Request error fetching data: {e}")
+        except KeyError as e:
+            print(f"KeyError fetching data: {e}")
+        except Exception as e:
+            print(f"Error fetching data: {e}")
+
+    return stock_data
