@@ -14,8 +14,8 @@ def create_app():
     
     db.init_app(app)
 
-    from Lesson.views import lesson
-    app.register_blueprint(lesson, url_prefix="/lesson")
+    from lessson.views import lessson
+    app.register_blueprint(lessson, url_prefix="/lessson")
 
     with app.app_context():
         db.create_all()
