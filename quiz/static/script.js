@@ -55,69 +55,110 @@ function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
     const question = questions[currentQuestionIndex];
     const questionText = question.question;
-    const optionA = question.option_a.replace(/'/g, "\\'");
-    const optionB = question.option_b.replace(/'/g, "\\'");
-    const optionC = question.option_c.replace(/'/g, "\\'");
-    const correctAnswer = question.answer.replace(/'/g, "\\'");
+    const optionA = question.option_a;
+    const optionB = question.option_b;
+    const optionC = question.option_c;
+    const correctAnswer = question.answer;
 
     quizContainerEl.innerHTML = `
       <div class="quiz-content">
         <h2>Question ${currentQuestionIndex + 1}</h2>
         <p>${questionText}</p>
-        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionA}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionA}</button>
-        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionB}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionB}</button>
-        <button class='btn-primary btn mt-4 mb-2 btn-block' onclick="checkUserAnswer('${optionC}', '${correctAnswer}', '${optionA}', '${optionB}', '${optionC}')">${optionC}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' id="optionA-btn">${optionA}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' id="optionB-btn">${optionB}</button>
+        <button class='btn-primary btn mt-4 mb-2 btn-block' id="optionC-btn">${optionC}</button>
       </div>
     `;
+
+    document.getElementById('optionA-btn').addEventListener('click', () => checkUserAnswer(optionA, correctAnswer));
+    document.getElementById('optionB-btn').addEventListener('click', () => checkUserAnswer(optionB, correctAnswer));
+    document.getElementById('optionC-btn').addEventListener('click', () => checkUserAnswer(optionC, correctAnswer));
   } else {
     showReviewSection();
   }
 }
 
-
-function checkUserAnswer(userSelection, correctAnswer, optionA, optionB, optionC) {
+function checkUserAnswer(userSelection, correctAnswer) {
   const buttons = document.querySelectorAll('.quiz-content button');
   buttons.forEach(button => {
     button.disabled = true;
     button.classList.add('disabled');
   });
-  let isCorrect;
 
-  if (userSelection == correctAnswer) {
+  let isCorrect = userSelection === correctAnswer;
+
+  if (isCorrect) {
     score++;
     moneyEarned += 5;
-    isCorrect = true;
-  } else {
-    isCorrect = false;
   }
-  userAnswers.push({ question: questions[currentQuestionIndex], userSelection, correctAnswer, isCorrect, explanation: "" });
-  getAnswerExplanation(questions[currentQuestionIndex].question, userSelection, correctAnswer, optionA, optionB, optionC, (explanation) => {
-    userAnswers[currentQuestionIndex].explanation = explanation;
-  });
-  renderQuestionResult(userSelection, correctAnswer, isCorrect);
-}
 
+  userAnswers.push({
+    question: questions[currentQuestionIndex],
+    userSelection,
+    correctAnswer,
+    isCorrect,
+    explanation: ""
+  });
+
+  getAnswerExplanation(
+    questions[currentQuestionIndex].question,
+    userSelection,
+    correctAnswer,
+    questions[currentQuestionIndex].option_a,
+    questions[currentQuestionIndex].option_b,
+    questions[currentQuestionIndex].option_c,
+    (explanation) => {
+      userAnswers[currentQuestionIndex].explanation = explanation;
+      renderQuestionResult(userSelection, correctAnswer, isCorrect);
+    }
+  );
+}
 
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   nextQuestionBtnEl.classList.remove('hidden');
 
   if (isCorrect) {
     incrementUserCash();
-    quizAnswerContainerEl.innerHTML = 
-    `<h3>Hooray! Correct!</h3>
-    <h5>Your answer: ${userSelection}</h5>
-    <h5>Correct answer: ${correctAnswer}</h5>
-    <p>You Earned $${moneyEarned}! Keep it up!</p>`;
-  } 
-  else {
-    quizAnswerContainerEl.innerHTML = 
-    `<h3>Oh darn! Wrong Answer.</h3>
-    <h5>Your answer: ${userSelection}</h5>
-    <h5>Correct answer: ${correctAnswer}</h5>
-    <p>Better luck next time!</p>`;
+    quizAnswerContainerEl.innerHTML = `
+      <h3>Hooray! Correct!</h3>
+      <h5>Your answer: ${userSelection}</h5>
+      <h5>Correct answer: ${correctAnswer}</h5>
+      <p>You Earned $${moneyEarned}! Keep it up!</p>
+    `;
+  } else {
+    quizAnswerContainerEl.innerHTML = `
+      <h3>Oh darn! Wrong Answer.</h3>
+      <h5>Your answer: ${userSelection}</h5>
+      <h5>Correct answer: ${correctAnswer}</h5>
+      <p>Better luck next time!</p>
+    `;
   }
 }
 
+
+
+function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, optionB, optionC, callback) {
+  fetch('/quiz/generate-explanation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      question: question,
+      user_answer: userAnswer,
+      correct_answer: correctAnswer,
+      option_a: optionA,
+      option_b: optionB,
+      option_c: optionC
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    callback(data.explanation);
+  })
+  .catch(error => console.error('Error fetching explanation:', error));
+}
 
 function showReviewSection() {
   quizContainerEl.classList.add('hidden');
@@ -145,31 +186,6 @@ function incrementUserCash() {
        .then(data => console.log(data))
        .catch(err => console.log(err));
 }
-
-
-function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, optionB, optionC, callback) {
-  fetch('/quiz/generate-explanation', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      question: question,
-      user_answer: userAnswer,
-      correct_answer: correctAnswer,
-      option_a: optionA,
-      option_b: optionB,
-      option_c: optionC
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-    callback(data.explanation);
-  })
-  .catch(error => console.error('Error fetching explanation:', error));
-}
-
 
 function renderLoadingAnimation() {
   quizContainerEl.innerHTML = '<div class="loader"></div>'

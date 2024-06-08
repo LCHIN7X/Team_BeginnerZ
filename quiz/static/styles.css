@@ -1,3 +1,4 @@
+/* General styles */
 * {
   box-sizing: border-box;
   color: white;
@@ -6,7 +7,7 @@
 }
 
 body {
-  background-image: linear-gradient(rgba(4, 9, 28, 0.9), rgba(4, 9, 28, 0.8)), url('./images/quiz-bg.jpg');
+  background-image: linear-gradient(rgba(4, 9, 28, 0.85), rgba(4, 9, 28, 0.85)), url('./images/quiz-bg.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -66,7 +67,6 @@ body {
   50% { border-color: orange; }
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: fit-content;
   font-weight: bold;
@@ -97,4 +97,35 @@ body {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+}
+
+/* New styles for the quiz grid layout */
+.quiz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
+  align-items: start;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quiz-container {
+  grid-column: 1 / span 1;
+}
+
+#quiz-answer-container-el {
+  grid-column: 2 / span 1;
+  align-self: start; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .quiz {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-container, #quiz-answer-container-el {
+    grid-column: 1 / span 1;
+  }
 }

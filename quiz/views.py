@@ -87,7 +87,7 @@ def generate_explanation():
     Correct Answer: {correct_answer}
     If the user's answer was wrong, please provide an explanation for why the correct answer is correct and why the user's answer is incorrect.
     If the user's answer was correct, also provide an explanation to elaborate more on why the other 2 answers are incorrect.
-    Respond as if you are talking to the user one-on-one.
+    Respond as if you are talking to the user one-on-one. An explanation must be generated for each prompt. Only provide the explanation, nothing else.
     """
 
     answers_chat = client.chat.completions.create(
