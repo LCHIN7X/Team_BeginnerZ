@@ -31,14 +31,16 @@ content %}
       Next Question
     </button>
   </div>
-  <div id="review-container-el" class="mt-4 hidden">
-    <h2>Review Your Answers</h2>
-    <div id="review-content-el"></div>
-    <button id="back-to-quiz-btn-el" class="btn btn-outline-secondary">
-      Back to Quiz
-    </button>
+
+    <div id="review-container-el" class="mt-4 hidden">
+      <h2>Review Your Answers</h2>
+      <div id="review-content-el"></div>
+      <button id="back-to-quiz-btn-el" class="btn btn-primary">
+        Back to Quiz
+      </button>
+    </div>
   </div>
-</div>
+
 {% endblock %} {% block js %}
 <script src="{{ url_for('.static', filename='script.js') }}"></script>
 {% endblock %}

@@ -101,7 +101,6 @@ body {
   align-items: start;
   width: 95vw;
   margin: 0 auto;
-  border: 1px solid white;
 }
 
 .quiz-container {
@@ -111,8 +110,14 @@ body {
 
 #quiz-answer-container-el {
   grid-column: 2 / span 1;
-  align-self: start; 
   justify-self: center;
+}
+
+.review-container-el {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 #review-content-el {
@@ -120,13 +125,15 @@ body {
   padding: 2em;
   grid-template-columns: 1fr 1fr;
   gap: 2em 2em;
-  width: 100%;
+  width: 85vw;
+  justify-content: center;
 }
 
 .review-item {
   border: 2px solid white;
   border-radius: 5px;
-  margin: auto;
+  justify-self: center;
+  padding: 0.5em;
 }
 
 /* Responsive adjustments */
