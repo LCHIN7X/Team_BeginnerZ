@@ -1,31 +1,37 @@
 const startQuizBtnEl = document.getElementById("start-quiz-btn-el");
-const quizContainerEl = document.getElementById('quiz-container-el')
-const quizAnswerContainerEl = document.getElementById('quiz-answer-container-el')
+const quizContainerEl = document.getElementById('quiz-container-el');
+const quizAnswerContainerEl = document.getElementById('quiz-answer-container-el');
+const nextQuestionBtnEl = document.getElementById('next-question-btn-el');
 
-let currentQuestionIndex = 0
-let questions = []
-let score = 0
-let moneyEarned = 0
-
+let currentQuestionIndex = 0;
+let questions = [];
+let score = 0;
+let moneyEarned = 0;
 
 startQuizBtnEl.addEventListener("click", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   fetch("/quiz/get-questions")
     .then((res) => res.json())
     .then((data) => {
-      quizContainerEl.innerHTML = ''
+      quizContainerEl.innerHTML = '';
       questions = data.questions;
-      currentQuestionIndex = 0
-      startQuiz()
+      currentQuestionIndex = 0;
+      startQuiz();
     })
     .catch(error => console.error('Error fetching questions:', error));
 });
 
+nextQuestionBtnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  currentQuestionIndex++;
+  renderQuizQuestion();
+  quizAnswerContainerEl.innerHTML = ''; // Clear previous answer result
+  nextQuestionBtnEl.classList.add('hidden');
+});
 
 function startQuiz() {
-  renderQuizQuestion()
+  renderQuizQuestion();
 }
-
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
@@ -52,43 +58,36 @@ function renderQuizQuestion() {
   }
 }
 
-
 function checkUserAnswer(userSelection, correctAnswer) {
-  let isCorrect
+  let isCorrect;
   if (userSelection == correctAnswer) {
-    score ++
-    console.log('Hooray! That is correct!')
-    console.log(score)
-    moneyEarned += 5
-    isCorrect = true
+    score++;
+    console.log('Hooray! That is correct!');
+    console.log(score);
+    moneyEarned += 5;
+    isCorrect = true;
+  } else {
+    console.log(userSelection);
+    console.log(correctAnswer);
+    console.log("Oops! Wrong Answer!");
+    isCorrect = false;
   }
-  else {
-    console.log(userSelection)
-    console.log(correctAnswer)
-    console.log("Oops! Wrong Answer!")
-    isCorrect = false
-  }
-  renderQuestionResult(userSelection, correctAnswer, isCorrect)
-  currentQuestionIndex ++
-  renderQuizQuestion()
+  renderQuestionResult(userSelection, correctAnswer, isCorrect);
 }
 
-
 function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
+  nextQuestionBtnEl.classList.remove('hidden');
   if (isCorrect) {
     quizAnswerContainerEl.innerHTML = 
     `<h3>Hooray! Correct!</h3>
     <h5>Your answer: ${userSelection}</h5>
     <h5>Correct answer: ${correctAnswer}</h5>
-    <p>You Earned $${moneyEarned}! Keep it up!</p>
-    `
-  }
-  else {
+    <p>You Earned $${moneyEarned}! Keep it up!</p>`;
+  } else {
     quizAnswerContainerEl.innerHTML = 
     `<h3>Oh darn! Wrong Answer.</h3>
     <h5>Your answer: ${userSelection}</h5>
     <h5>Correct answer: ${correctAnswer}</h5>
-    <p>Better luck next time!</p>
-    `
+    <p>Better luck next time!</p>`;
   }
 }
