@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from models import db
+from models import db,Stock
 from user.models import User, History
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import login_required, current_user
@@ -7,6 +7,7 @@ from .extra import lookup
 from datetime import date
 import requests
 from werkzeug.exceptions import default_exceptions
+from chatbot.chatbot import groq_chat,ChatGroq
 
 api_key = 'a74c1d6a9bfc48a096826ab16608dd72'
 if not api_key:
@@ -24,19 +25,7 @@ def home():
 def stocktrade():
     return render_template("stocktrade.html")
 
-@trade.route("/quote", methods=['GET', 'POST'])
-@login_required
-def quote():
-    if request.method == "POST":
-        symbol = request.form.get("symbol")
-        quote_dict = lookup(symbol)
-        if quote_dict:
-            return render_template("quoted.html", company=quote_dict["company"], price=quote_dict["price"], symbol=quote_dict["symbol"])
-        else:
-            flash("No such stock found")
-            return redirect(url_for("trade.quote"))
-    else:
-        return render_template("quote.html")
+
 
 @trade.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -137,13 +126,7 @@ def sell():
             return redirect(url_for("trade.sell"))
 
         try:
-            new_history = History(
-                user_id=current_user.id,
-                price=float(stock["price"]),
-                shares=-int(shares),
-                date=date.today(),
-                symbol=symbol
-            )
+            new_history = History(user_id=current_user.id,price=float(stock["price"]),shares=-int(shares),date=date.today(),symbol=symbol)
             db.session.add(new_history)
             db.session.commit()
         except SQLAlchemyError as e:
@@ -171,6 +154,26 @@ def history():
         return redirect(url_for("trade.history"))
 
     return render_template("history.html", historyy=historyy)
+
+@trade.route("/recommendations", methods=['GET'])
+def recommendations():
+    groq_api_key = "a74c1d6a9bfc48a096826ab16608dd72"  
+
+    # Create an instance of ChatGroq
+    groq_instance = ChatGroq(groq_api_key=groq_api_key, model_name='llama3-8b-8192')
+
+    # Fetch stock data
+    stock_data = lookup(["JPM", "WFC", "BAC", "HSBC", "C", "MA", "AAPL", "MSFT", "GOOGL", "FB", "ORCL", "INTC", "AMZN", "BABA", "T", "WMT", "CHL", "V"])
+
+    # Assuming stock_data is a list of dictionaries, extract relevant information
+    names = [data['company'] for data in stock_data]
+    prices = [data['price'] for data in stock_data]
+
+    # Ask AI for recommendations using the instance method
+    recommendations = groq_instance.get_recommendations(stock_data)
+
+    return render_template("recommendations.html", names=names, prices=prices, recommendations=recommendations)
+
 
 
 @trade.route("/stocksHeld")

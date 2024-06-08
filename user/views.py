@@ -90,6 +90,7 @@ def login():
     # if method is GET, render page
     return render_template('login.html',current_page="login",current_user=current_user)
 
+
 @views.route("/logout",methods=["GET"])
 @login_required
 def logout():
