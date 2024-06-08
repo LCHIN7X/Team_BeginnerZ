@@ -88,7 +88,7 @@ def login():
             flash("User account does not exist, please create an account.",category="error")
 
     # if method is GET, render page
-    return render_template('home.html',current_page="login",current_user=current_user)
+    return render_template('login.html',current_page="login",current_user=current_user)
 
 @views.route("/logout",methods=["GET"])
 @login_required
