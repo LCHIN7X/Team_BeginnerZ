@@ -9,7 +9,7 @@ from models import db
 load_dotenv()
 
 quiz = Blueprint('quiz',__name__,template_folder='templates',static_folder='static')
-QUIZ_LENGTH = 5
+QUIZ_LENGTH = 10
 API_KEY = os.getenv('API_KEY')
 client = Groq(api_key=API_KEY)
 
