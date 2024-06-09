@@ -1,0 +1,9 @@
+flask
+flask-sqlalchemy
+flask_wtf
+wtforms
+sqlalchemy
+flask_login
+email_validator
+langchain
+langchain_groq
