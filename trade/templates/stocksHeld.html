@@ -34,16 +34,17 @@
                 {% endfor %}
                 <tr>
                     <td>Balance:</td>
-                    <td colspan=3></td>
+                    <td colspan="3"></td>
                     <td>RM {{ "%.2f"|format(cash) }}</td>
                 </tr>
             </tbody>
             <tfoot style="font-weight: bold" align="center">
                 <td>Total:</td>
-                <td colspan=3></td>
+                <td colspan="3"></td>
                 <td>RM {{ "%.2f"|format(grandTotal) }}</td>
             </tfoot>
         </table>
         
     </div>
 {% endblock %}
+</body>
