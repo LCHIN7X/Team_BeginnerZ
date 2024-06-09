@@ -7,7 +7,7 @@ const reviewContainerEl = document.getElementById('review-container-el');
 const reviewContentEl = document.getElementById('review-content-el');
 const backToQuizBtnEl = document.getElementById('back-to-quiz-btn-el');
 
-// Initialize variables
+
 let currentQuestionIndex = 0;
 let questions = [];
 let score = 0;
@@ -190,13 +190,11 @@ function renderLoadingAnimation() {
   quizContainerEl.innerHTML = '<div class="loader"></div>';
 }
 
-// Function to update the cash amount
 function updateCash(newCashAmount) {
   cash = newCashAmount;
   renderCash();
 }
 
-// Function to render the cash amount in the DOM
 function renderCash() {
   const cashAmountEl = document.getElementById('cash-amount');
   if (cashAmountEl) {
@@ -204,11 +202,9 @@ function renderCash() {
   }
 }
 
-// Initial setup: get the cash amount from the data attribute
 document.addEventListener('DOMContentLoaded', function() {
   const cashAmountEl = document.getElementById('cash-amount');
   cash = parseFloat(cashAmountEl.getAttribute('data-cash'));
 
-  // Initial render
   renderCash();
 });
