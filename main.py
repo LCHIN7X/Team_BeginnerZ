@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from models import db
 from flask_login import LoginManager
 
@@ -27,6 +27,9 @@ def create_app():
     
     db.init_app(app)
 
+    from quiz.views import quiz 
+    app.register_blueprint(quiz,url_prefix="/quiz")
+
     with app.app_context():
         db.create_all()
 
@@ -37,6 +40,10 @@ def create_app():
     @login_manager.user_loader 
     def load_user(user_id):
         return User.query.get(int(user_id))
+    
+    @app.route("/")
+    def home():
+        return render_template('home.html')
     
     return app
 
