@@ -1,1 +1,1 @@
-To run the app, type 'python main.py' in the terminal.
+To run the app, run main.py

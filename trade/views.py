@@ -162,7 +162,6 @@ def recommendations():
         if not stock_data:
             stock_data = []
 
-        
 
         if stock_data:
             names = [data['company'] for data in stock_data]
