@@ -15,13 +15,14 @@ def lookup(symbols):
 
         try:
             response = requests.get(url).json()
+           
 
             if "code" in response:
                 continue
 
             price = response.get("close")
             if price is not None:
-                price = round(float(price), 2)  
+                price = round(float(price), 2)
 
             stock_data.append({
                 "symbol": symbol.upper(),
@@ -36,4 +37,7 @@ def lookup(symbols):
         except Exception as e:
             print(f"Error fetching data: {e}")
 
-    return stock_data
+    if len(stock_data) == 1:
+        return stock_data[0]
+    else:
+        return stock_data

@@ -11,7 +11,7 @@
     />
     {% block favicon %} 
     {% endblock %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('.static',filename='styles.css',_external='True')}}" />
+    
 
     <title>{% block title %} Base {% endblock %}</title>
   </head>
@@ -39,6 +39,10 @@
             <li class="nav-item">
               <a class="nav-link {% if current_page == 'home' %}active{% endif %}" href="{{url_for('trade.home')}}">Home</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('lesson.lesson_page1')}}">Lesson</a>
+            </li>
+          
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('trade.stocktrade')}}">Stock Trade</a>
             </li>
