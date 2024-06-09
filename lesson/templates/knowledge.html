@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+    <title>Financial Literacy</title>
+    <link rel="stylesheet" href="{{ url_for('lesson.static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+    </div>
+    <ul>
+        <li id="link"><a href="HTML_PAGE_1">Home</a></li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_2" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_3">Earning</a>
+                <a href="HTML_PAGE_4">Saving</a>
+                <a href="HTML_PAGE_5">Spending</a>
+            </div>
+        </li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_6" class="dropbtn">Adults</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_7">Create a Budget</a>
+                <a href="HTML_PAGE_8">Pay off Debt</a>
+                <a href="HTML_PAGE_9">Plan for retirement</a>
+            </div>
+        </li>
+        <li id="link" class="dropdown">
+            <a href="HTML_PAGE_10" class="dropbtn">Trading</a>
+            <div class="dropdown-content">
+                <a href="HTML_PAGE_11">Market</a>
+                <a href="HTML_PAGE_12">Stock</a>
+                <a href="HTML_PAGE_13">Strategy for Trading</a>
+            </div>
+        </li>
+    </ul>
+    
+    <h1 id="title1">Knowledge About Finance and Trading</h1>
+    
+    <div style="text-align: center;">
+        <h2 style="text-align: center;">Knowledge on {{ topic }}</h2>
+        <p style="font-size: 1.5em; font-weight: bold; line-height: 1.6; text-align: center;">
+            {{ knowledge.split('\n\n')[0] }}
+        </p>
+        <p style="line-height: 1.6; white-space: pre-wrap;">{{ knowledge.split('\n\n')[1] }}</p>
+    </div>
+</body>
+</html>
+{% endblock %}
