@@ -1,3 +1,4 @@
+// Selectors for elements
 const startQuizBtnEl = document.getElementById("start-quiz-btn-el");
 const quizContainerEl = document.getElementById('quiz-container-el');
 const quizAnswerContainerEl = document.getElementById('quiz-answer-container-el');
@@ -6,16 +7,18 @@ const reviewContainerEl = document.getElementById('review-container-el');
 const reviewContentEl = document.getElementById('review-content-el');
 const backToQuizBtnEl = document.getElementById('back-to-quiz-btn-el');
 
+// Initialize variables
 let currentQuestionIndex = 0;
 let questions = [];
 let score = 0;
 let moneyEarned = 0;
 let userAnswers = [];
+let cash = 0; // Initialize cash
 
-
+// Event listeners
 startQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
-  renderLoadingAnimation()
+  renderLoadingAnimation();
   fetch("/quiz/get-questions")
     .then((res) => res.json())
     .then((data) => {
@@ -28,7 +31,6 @@ startQuizBtnEl.addEventListener("click", (e) => {
     .catch(error => console.error('Error fetching questions:', error));
 });
 
-
 nextQuestionBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   currentQuestionIndex++;
@@ -37,7 +39,6 @@ nextQuestionBtnEl.addEventListener("click", (e) => {
   nextQuestionBtnEl.classList.add('hidden');
 });
 
-
 backToQuizBtnEl.addEventListener("click", (e) => {
   e.preventDefault();
   reviewContainerEl.classList.add('hidden');
@@ -45,11 +46,10 @@ backToQuizBtnEl.addEventListener("click", (e) => {
   location.reload();
 });
 
-
+// Functions
 function startQuiz() {
   renderQuizQuestion();
 }
-
 
 function renderQuizQuestion() {
   if (currentQuestionIndex < questions.length) {
@@ -120,22 +120,20 @@ function renderQuestionResult(userSelection, correctAnswer, isCorrect) {
   if (isCorrect) {
     incrementUserCash();
     quizAnswerContainerEl.innerHTML = `
-      <h3>Hooray! Correct!</h3>
-      <h5>Your answer: ${userSelection}</h5>
-      <h5>Correct answer: ${correctAnswer}</h5>
-      <p>You Earned $${moneyEarned}! Keep it up!</p>
+      <h3 class='mt-2 mb-2'>Hooray! Correct!</h3>
+      <h5 class='mt-2 mb-2'>Your answer: ${userSelection}</h5>
+      <h5 class='mt-2 mb-2'>Correct answer: ${correctAnswer}</h5>
+      <p>You Earned RM5! Keep it up!</p>
     `;
   } else {
     quizAnswerContainerEl.innerHTML = `
-      <h3>Oh darn! Wrong Answer.</h3>
-      <h5>Your answer: ${userSelection}</h5>
-      <h5>Correct answer: ${correctAnswer}</h5>
+      <h3 class='mt-2 mb-2'>Oh darn! Wrong Answer.</h3>
+      <h5 class='mt-2 mb-2'>Your answer: ${userSelection}</h5>
+      <h5 class='mt-2 mb-2'>Correct answer: ${correctAnswer}</h5>
       <p>Better luck next time!</p>
     `;
   }
 }
-
-
 
 function getAnswerExplanation(question, userAnswer, correctAnswer, optionA, optionB, optionC, callback) {
   fetch('/quiz/generate-explanation', {
@@ -179,14 +177,38 @@ function showReviewSection() {
   });
 }
 
-
 function incrementUserCash() {
   fetch('/quiz/increment-cash')
-       .then(res => res.json())
-       .then(data => console.log(data))
-       .catch(err => console.log(err));
+    .then(res => res.json())
+    .then(data => {
+      updateCash(data.new_cash);
+    })
+    .catch(err => console.error('Error incrementing cash:', err));
 }
 
 function renderLoadingAnimation() {
-  quizContainerEl.innerHTML = '<div class="loader"></div>'
+  quizContainerEl.innerHTML = '<div class="loader"></div>';
 }
+
+// Function to update the cash amount
+function updateCash(newCashAmount) {
+  cash = newCashAmount;
+  renderCash();
+}
+
+// Function to render the cash amount in the DOM
+function renderCash() {
+  const cashAmountEl = document.getElementById('cash-amount');
+  if (cashAmountEl) {
+    cashAmountEl.textContent = cash.toFixed(2);
+  }
+}
+
+// Initial setup: get the cash amount from the data attribute
+document.addEventListener('DOMContentLoaded', function() {
+  const cashAmountEl = document.getElementById('cash-amount');
+  cash = parseFloat(cashAmountEl.getAttribute('data-cash'));
+
+  // Initial render
+  renderCash();
+});

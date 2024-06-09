@@ -7,7 +7,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(200), unique=True, nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    cash = db.Column(db.Float, default=2000.0)
+    cash = db.Column(db.Float, default=1000.0)
 
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
