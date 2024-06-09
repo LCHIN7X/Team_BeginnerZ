@@ -48,7 +48,7 @@ def ask():
         memory=memory,
     )
 
-    # generate chatbots answer by sending the full prompt to API
+    # generate chatbots answer 
     response = conversation.predict(human_input=user_question)
     memory.save_context({'input': user_question}, {'output': response})
 
@@ -57,11 +57,8 @@ def ask():
     return jsonify({"response": formatted_response})
 
 def format_response(response):
-    # limit the response to around 5 points
-    points = response.split('\n')
-    if len(points) > 5:
-        points = points[:5]
-    return '<br>'.join(points)
+    
+    return response.replace('\n', '<br>')
 
 class ChatGroq:
     def __init__(self, groq_api_key, model_name):
@@ -72,12 +69,16 @@ class ChatGroq:
         recommendations = {}
         for stock in stock_data:
             # recommendation based on stock price
-            if stock['price'] < 100:
+            if stock['price'] < 50:
                 recommendations[stock['company']] = "Strong Buy"
-            elif 100 <= stock['price'] < 200:
+            elif 50 <= stock['price'] < 100:
                 recommendations[stock['company']] = "Buy"
+            elif 100 <= stock['price'] < 150:
+                recommendations[stock['company']] = "Hold"
+            elif 150 <= stock['price'] < 200:
+                recommendations[stock['company']] = "Sell"
             else:
-                recommendations[stock['company']] = "Hold" 
+                recommendations[stock['company']] = "Strong Sell"
         return recommendations
     
     def generate_knowledge(self, topic):
