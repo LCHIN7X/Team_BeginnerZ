@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block main %}
+<link rel="stylesheet" href="{{ url_for('trade.static', filename='style.css') }}">
+<body class="trade-background">
     <div class="container text-center">
         
-        <h2 align="center">Stocks in hand</h2>
-        <p align="center">Your holdings are: </p>
+        <h2 class="text-center mb-4 header-white" align="center">Stocks in hand</h2>
+        <p class="text-center mb-4 header-white" align="center">Your holdings are: </p>
         <table class="table table-striped">
             <thead>
                 <tr>

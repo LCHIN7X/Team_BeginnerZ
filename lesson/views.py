@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,request
 from flask_login import login_required
+from chatbot.chatbot import ChatGroq
+
 
 lesson = Blueprint("lesson", __name__, template_folder="templates", static_folder="static")
 
@@ -68,3 +70,15 @@ def lesson_page12():
 @login_required
 def lesson_page13():
     return render_template("HTML_PAGE_13.html")
+
+@lesson.route("/knowledge")
+@login_required
+def knowledge_page():
+    groq_api_key = "a74c1d6a9bfc48a096826ab16608dd72"
+    groq_instance = ChatGroq(groq_api_key=groq_api_key, model_name='llama3-8b-8192')
+
+    # Generate knowledge content about finance
+    topic = "finance"
+    knowledge = groq_instance.generate_knowledge(topic)
+    
+    return render_template("knowledge.html", topic=topic, knowledge=knowledge)

@@ -2,7 +2,7 @@
 @font-face {
     font-family: 'Sofia';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
     src: url(https://fonts.gstatic.com/s/sofia/v14/8QIHdirahM3j_su5uI0.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
@@ -10,7 +10,7 @@
   @font-face {
     font-family: 'Audiowide';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
     src: url(https://fonts.gstatic.com/s/audiowide/v20/l7gdbjpo0cum0ckerWCdlg_O.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
@@ -19,15 +19,7 @@
   
   /* all page */
   
-  .header {
-    color: #f0f0ff;
-    background-image: url(https://png.pngtree.com/background/20210709/original/pngtree-simple-technology-business-line-picture-image_938374.jpg);
-    background-size: cover;
-    padding: 20px;
-    font-size: 40px;
-    text-align: center;
-    background-size: cover;
-  }
+  
   
   
   body {
@@ -61,23 +53,39 @@
   }
     
   #link.dropdown {
-      display: inline-block;
+    position: relative;
+    display: inline-block;
   }
     
   .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #b3a0ea;
-      z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #cbbbfa;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(246, 245, 245, 0.2);
+    padding: 12px 16px;
+    z-index: 2; 
   }
     
   .dropdown:hover .dropdown-content {
       display: block;
   }
-  
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid-item {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+}
   #title1 {
       text-align: center;
-      font-family: 'Audiowide';
+      font-family: 'sans-serif';
       font-size:60px;
       color: #111010;
       text-shadow: 4px 5px 2px #f3eded

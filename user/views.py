@@ -78,7 +78,7 @@ def login():
                 login_user(user_in_db, remember=True)
 
                 
-                return redirect(url_for('home'))
+                return render_template('home.html') 
             
             # if password is incorrect, flash error message
             else:

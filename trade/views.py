@@ -35,7 +35,6 @@ def buy():
         shares = request.form.get("shares")
         stock = lookup(symbol)
 
-        
         if not symbol:
             flash("Please enter the correct symbol")
             return redirect(url_for("trade.buy"))
@@ -58,7 +57,6 @@ def buy():
         user_cash = user.cash
         total_cost = float(price) * int(shares)
 
-        
         if user_cash < total_cost:
             flash("Sorry! You don't have enough money")
             return redirect(url_for("trade.buy"))
@@ -69,7 +67,7 @@ def buy():
             db.session.commit()
 
             # insert transaction into history
-            new_history = History(user_id=current_user.id,price=float(price),shares=int(shares),date=date.today(),symbol=symbol.upper())
+            new_history = History(user_id=current_user.id, price=float(price), shares=int(shares), date=date.today(), symbol=symbol.upper())
             db.session.add(new_history)
             db.session.commit()
 
@@ -82,6 +80,8 @@ def buy():
         return redirect(url_for("trade.history"))
     else:
         return render_template("buy.html")
+
+
 
 
 
@@ -151,22 +151,38 @@ def history():
 
 @trade.route("/recommendations", methods=['GET'])
 def recommendations():
-    groq_api_key = "a74c1d6a9bfc48a096826ab16608dd72"  
+    try:
+        groq_api_key = "a74c1d6a9bfc48a096826ab16608dd72"
 
-    # create an instance of ChatGroq
-    groq_instance = ChatGroq(groq_api_key=groq_api_key, model_name='llama3-8b-8192')
+        # Create an instance of ChatGroq
+        groq_instance = ChatGroq(groq_api_key=groq_api_key, model_name='llama3-8b-8192')
 
-    # fetch stock data
-    stock_data = lookup(["JPM", "WFC", "BAC", "HSBC", "C", "MA", "AAPL", "MSFT", "GOOGL", "FB", "ORCL", "INTC", "AMZN", "BABA", "T", "WMT", "CHL", "V"])
+        # Fetch stock data
+        stock_data = lookup(["AAPL", "MSFT", "GOOGL", "FB", "ORCL", "INTC"])
+        if not stock_data:
+            stock_data = []
 
-    # assuming stock_data is a list
-    names = [data['company'] for data in stock_data]
-    prices = [data['price'] for data in stock_data]
+        
 
-    # ask AI for recommendations using the instance method
-    recommendations = groq_instance.get_recommendations(stock_data)
+        if stock_data:
+            names = [data['company'] for data in stock_data]
+            prices = [data['price'] for data in stock_data]
 
-    return render_template("recommendations.html", names=names, prices=prices, recommendations=recommendations)
+            # recommendations using the instance method
+            recommendations = groq_instance.get_recommendations(stock_data)
+
+            print(f"Names: {names}")
+            print(f"Prices: {prices}")
+            print(f"Recommendations: {recommendations}")
+        else:
+            names = ["No data available"]
+            prices = ["No data available"]
+            recommendations = {"No data available": "No data available"}
+
+        return render_template("recommendations.html", names=names, prices=prices, recommendations=recommendations)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return render_template("recommendations.html", names=["Error"], prices=["Error"], recommendations={"Error": "An error occurred while fetching data"})
 
 
 
