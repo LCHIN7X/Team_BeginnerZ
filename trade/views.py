@@ -235,12 +235,6 @@ def stocksHeld():
 
 
 
-
-
-
-
-
-
 def errorhandler(e):
     flash(f"{e.name}: {e.code}")
 
