@@ -1,16 +1,15 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from groq import Groq
-from dotenv import load_dotenv
+
 import os
 from user.models import User
 from flask_login import current_user, login_required
 from models import db
 
-load_dotenv()
 
 quiz = Blueprint('quiz',__name__,template_folder='templates',static_folder='static')
 QUIZ_LENGTH = 5
-API_KEY = os.getenv('API_KEY')
+API_KEY = "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"
 client = Groq(api_key=API_KEY)
 
 # functions to get quiz questions from API 
