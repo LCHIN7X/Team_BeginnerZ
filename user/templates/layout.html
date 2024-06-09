@@ -38,6 +38,9 @@
               <a class="nav-link {% if current_page == 'home' %}active{% endif %}" href="{{url_for('trade.home')}}">Home</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{url_for('lesson.lesson_page1')}}">Learn</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link {% if current_page == 'home' %}active{% endif %}" href="{{url_for('quiz.quiz_page')}}">Take Quiz</a>
             </li>
             <li class="nav-item">
@@ -45,6 +48,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('chatbot.chat')}}">Ask me Questions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('rank.ranking')}}">Ranking</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('views.logout')}}">Log Out</a>
